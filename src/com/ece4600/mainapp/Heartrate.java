@@ -17,11 +17,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +33,8 @@ import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
 public class Heartrate extends Activity {
-private  Chronometer timer;
+	public SharedPreferences settings;
+	public SharedPreferences.Editor editor;
 	
 	private final static String TAG = "BLUETOOTH";
 	private final String appName = "wellNode";
@@ -108,6 +111,10 @@ private  Chronometer timer;
 
 		 
 		 paintGraph();
+		 
+		 setUpPreferences();
+		 
+		 recordButton.setChecked(settings.getBoolean("recordState", false));
 		
 	}
 	
@@ -122,8 +129,8 @@ private  Chronometer timer;
 	  sendBroadcast(i);
 		
 	  
-	  Intent intent2 = new Intent(Heartrate.this, btMateService.class);
-	  stopService(intent2);
+	  //Intent intent2 = new Intent(Heartrate.this, btMateService.class);
+	  //stopService(intent2);
 	  
 	 }
 	 
@@ -148,7 +155,7 @@ private  Chronometer timer;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.bluetooth, menu);
+		getMenuInflater().inflate(R.menu.heartrate, menu);
 		return true;
 	}
 
@@ -157,11 +164,31 @@ private  Chronometer timer;
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		
+		switch(item.getItemId()){
+		
+		case R.id.heartmenu_loca:
+    		
+    		break;
+    	case R.id.heartmenu_post:
+    		
+    		break;
+    	case R.id.heartmenu_about:
+    		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, About.class));
+    		//finish();
+    		break;
+    	case R.id.action_settings:
+    		
+    		break;
+    		
+    	}
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return true; 
+		
 	}
 	
 	
@@ -365,5 +392,8 @@ private  Chronometer timer;
 		layout.addView(lineView);
 	}
 	
-	
+	public void setUpPreferences(){
+    	settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
+    	editor = settings.edit();
+    }
 }

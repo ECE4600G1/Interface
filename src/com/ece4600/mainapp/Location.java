@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.kymjs.aframe.database.KJDB;
@@ -20,6 +21,7 @@ import org.kymjs.aframe.database.KJDB;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -29,14 +31,25 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class Location extends Activity implements OnClickListener,SensorEventListener {
+	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS", Locale.CANADA);
+	public SharedPreferences postureSettings;
+	public SharedPreferences.Editor editor;
+	
+	ToggleButton recordButton;
+	private Boolean saveState;
+	private String userName, fileName;
+	private Time now = new Time();
+	private locationFileOperations fileOps = new locationFileOperations();
 	
 	private double zx = 0;
 	private double zy = 0;
@@ -123,6 +136,10 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 
 						zx = zx / 5;
 						zy = zy / 5;
+						
+						if (saveState){
+							fileOps.write(fileName, zx, zy);
+						}
 
 						buffer.append("***********current location determined:x is" + zx
 								+ "******y is" + zy);
@@ -192,6 +209,28 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 		btn_map = (Button) findViewById(R.id.btn_map);
 		btn_map.setOnClickListener(this);
 		btReturn=(Button) findViewById(R.id.button1);
+		recordButton = (ToggleButton)findViewById(R.id.locationSave);
+		
+		setUpPreferences();
+		saveState = false;
+		recordButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(recordButton.isChecked()){  // Start recording
+					saveState = true;
+					
+					now.setToNow();
+					fileName = userName+ " Location " + now.format("%m-%d-%Y %H-%M-%S") + ".csv";
+					fileOps.writeHeader(fileName, userName, now.format("%m-%d-%Y"));
+				}
+				else{ // stop recording
+
+				   saveState = false;
+				}
+				
+			}
+		});
 		
 		btReturn.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
@@ -616,6 +655,14 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+	}
+	
+	public void setUpPreferences(){
+		
+		postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
+    	editor = postureSettings.edit();
+    	
+    	userName = postureSettings.getString("name", "Mike");
 	}
 	
 	

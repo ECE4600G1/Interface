@@ -50,8 +50,15 @@ public class bleService extends Service{
     private Handler handler = new Handler();
     
     //TI SensorTag device info
+    /*
+     * device1_MAC = "90:59:AF:0B:82:F4"
+     * device2_MAC = "90:59:AF:0B:82:D9"
+     * device3_MAC = "BC:6A:29:AB:61:CF"
+     * 
+     * */
     private final String device1_MAC = "90:59:AF:0B:82:F4";
     private final String device2_MAC = "90:59:AF:0B:82:D9";
+    
     
     public dataArray[] array_2d = new dataArray[2];
     
@@ -168,8 +175,19 @@ public class bleService extends Service{
 	}
 	@Override
 	public void onDestroy(){ // disconnects the sensortag connection after quitting service
-		Intent i = new Intent(bleService.this, PostureService.class);
-		stopService(i);
+
+		 Intent i = new Intent(bleService.this, PostureService.class);
+		 i.putExtra("STOP", true);
+		  i.putExtra("XVal1", (float) array_2d[0].xaxis);
+		  i.putExtra("YVal1",(float) array_2d[0].yaxis);
+		  i.putExtra("ZVal1", (float) array_2d[0].zaxis);
+		  
+		  i.putExtra("XVal2", (float) array_2d[1].xaxis);
+		  i.putExtra("YVal2",(float) array_2d[1].yaxis);
+		  i.putExtra("ZVal2", (float) array_2d[1].zaxis);
+		 startService(i);
+		  
+		 
 	if (mConnectedGatt1 != null)	
 		mConnectedGatt1.disconnect();
 	if (mConnectedGatt2 != null)	
@@ -382,8 +400,8 @@ private BluetoothGattCallback mGattCallback1 = new BluetoothGattCallback() {
 		h.post(new Runnable(){
 			@Override
 			public void run(){
-				//Log.i(DEBUG, "Connection successful, Getting Services");
-				//Toast.makeText( bleService.this, "Device 1 accelerometers enabled", Toast.LENGTH_SHORT).show();
+				
+				Toast.makeText( bleService.this, "Device 1 accelerometers enabled", Toast.LENGTH_SHORT).show();
 				final Toast toast = Toast.makeText(bleService.this,"Device 1 accelerometers enabled", Toast.LENGTH_SHORT);
 			    toast.show();
 			    Handler handlerstop = new Handler();
@@ -396,11 +414,8 @@ private BluetoothGattCallback mGattCallback1 = new BluetoothGattCallback() {
 			}
 		});
 		
-		//readSensor(gatt);
-		
 		startScan();
-		//poll1();
-		//stopScan();
+
     }
 	/* Read a sensor:*/
 	public void readSensor(BluetoothGatt gatt){
@@ -422,7 +437,6 @@ private BluetoothGattCallback mGattCallback1 = new BluetoothGattCallback() {
         vector = sensorTag.getAccelerometerValue(c);
 		dataArray data = new dataArray(vector[0], vector[1], vector[2]);
 		array_2d[0] = data;
-        //Log.d(DEBUG, "DEVICE 1 Accelerometer data:" + vector[0] +  "," + vector[1] +  "," + vector[2] );
 	}
 }; //End of mGattCallback1
 
@@ -574,6 +588,7 @@ private Runnable runnable1 = new Runnable() {
 			  //Log.i(DEBUG, data1);
        
 			  Intent i = new Intent(bleService.this, PostureService.class);
+			  i.putExtra("STOP", false);
 			  i.putExtra("XVal1", (float) array_2d[0].xaxis);
 			  i.putExtra("YVal1",(float) array_2d[0].yaxis);
 			  i.putExtra("ZVal1", (float) array_2d[0].zaxis);

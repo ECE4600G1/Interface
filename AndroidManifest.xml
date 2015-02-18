@@ -79,9 +79,24 @@
             android:screenOrientation="portrait"
             >
         </activity>
-         <activity android:name="Location_map" android:screenOrientation="portrait"></activity>
+         <activity android:name="Location_map" 
+             android:screenOrientation="portrait"
+             android:label="@string/title_activity_mapLocation">
+             
+         </activity>
         <activity android:name=".EditUserSettings"
              android:label="@string/title_activity_editProfile"></activity>
+        
+        <activity android:name=".About"
+             android:label="@string/title_activity_about"></activity>
+        
+        <activity android:name=".PostureTimeLine"
+            android:label="@string/title_activity_posturetimeline" 
+            android:screenOrientation="landscape"
+            >
+            
+        </activity>
+        
     </application>
 
 </manifest>

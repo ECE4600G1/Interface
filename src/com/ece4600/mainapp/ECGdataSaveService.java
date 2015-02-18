@@ -101,7 +101,7 @@ public class ECGdataSaveService extends Service {
 		
 		public void createNewFile(){
 			now.setToNow();
-			fileName = userName+ ' ' + now.format("%m-%d-%Y %H:%M:%S") + ".csv";
+			fileName = userName+ " ECG " + now.format("%m-%d-%Y %H:%M:%S") + ".csv";
 			
 			fileOps.writeHeader(fileName, PATH, userName, now.format("%m-%d-%Y"), now.format("%H:%M:%S"));
 			Log.i(TAG,"Created file");
