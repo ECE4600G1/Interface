@@ -68,7 +68,7 @@ public class Posture extends Activity {
 	private static Context context;
 	
 	//TODO delete this
-	Button clear;
+	Button clear, timeLineButton;
 	private ChartThread chartThread;
 	
 	@Override
@@ -98,14 +98,7 @@ public class Posture extends Activity {
 		posture4 = (TextView) findViewById(R.id.posture4);
 		posture5 = (TextView) findViewById(R.id.posture5);
 		
-		//main code starts here
-		/*axisX1 = (TextView) findViewById(R.id.acc_x1);
-		axisY1 = (TextView) findViewById(R.id.acc_y1);
-		axisZ1 = (TextView) findViewById(R.id.acc_z1);
-		
-		axisX2 = (TextView) findViewById(R.id.acc_x2);
-		axisY2 = (TextView) findViewById(R.id.acc_y2);
-		axisZ2 = (TextView) findViewById(R.id.acc_z2);*/
+
 		
 		postureText = (TextView) findViewById(R.id.postureText);
 		
@@ -144,6 +137,16 @@ public class Posture extends Activity {
 		restorePreferences();
 		
 		clear = (Button)findViewById(R.id.button1);
+		timeLineButton = (Button)findViewById(R.id.postureTimeLine);
+		timeLineButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+	    		
+				startActivity(new Intent(Posture.this, PostureTimeLine.class));
+				finish();
+			}
+		});	
+		
 		
 		clear.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -387,6 +390,7 @@ public class Posture extends Activity {
 		   
 		   public void restorePreferences(){
 			   String userName, fName, date;
+			   int x = postureSettings.getInt("standTime", 0);
 			   pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
 		    			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
 		       paintGraph();
