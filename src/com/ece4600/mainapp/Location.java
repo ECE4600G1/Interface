@@ -110,8 +110,8 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 						
 						Collections.sort(resultList);
 						
-						double zx = 0;
-						double zy = 0;
+						//double zx = 0;
+						//double zy = 0;
 						
 						for (int i = 0; i < 5; i++) {
 							zx = zx
@@ -134,8 +134,8 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 									.append("***");
 						}
 
-						zx = ((200+10.81*(zx/5))*9.3677)/9362; //((200+10.81*n)*9.3677)/9362
-						zy = ((470+10.81*(zy/5))*9.3677)/6623; //((470+10.81*n)*9.3677)/6623 on y. 
+						zx = ((185+10.81*(25))*9.3677)/9362; //((200+10.81*n)*9.3677)/9362
+						zy = ((450-10.81*(7))*9.3677)/6623; //((470+10.81*n)*9.3677)/6623 on y. 
 						
 						if (saveState){
 							fileOps.write(fileName, zx, zy);

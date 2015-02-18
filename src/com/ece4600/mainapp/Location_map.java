@@ -239,8 +239,8 @@ public class Location_map extends Activity {
 				               toast.cancel(); 
 				           }
 				    }, 100);
-				        // x_meter = x_pos * factor  ((200+10.81*n)*9.3677)/9362 on x and ((470+10.81*n)*9.3677)/6623 on y. 
-					SampleCallout callout = new SampleCallout( markerB.getContext() , x_pos, y_pos); // x_pos->x_meter
+				        // x_meter = x_pos * factor  ((200+10.81*n)*9.3677)/9362 on x and ((450-10.81*n)*9.3677)/6623 on y. 
+					SampleCallout callout = new SampleCallout( markerB.getContext() , ((x_pos)*9362/9.3677-185)/10.81, (450-(y_pos)*6623/9.3677)/10.81); // x_pos->x_meter
 					
 					tileView.addCallout( callout, x_pos, y_pos, -0.5f, -1.0f );
 					callout.transitionIn();
