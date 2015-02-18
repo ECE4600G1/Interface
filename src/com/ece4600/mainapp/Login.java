@@ -165,7 +165,7 @@ class AttemptLogin extends AsyncTask<String, String, String> {
 		// TODO Auto-generated method stub
 		 // Check for success tag
      int success;
-     String lastname_database, firstname_database,weight_database;
+     String lastname_database, firstname_database,weight_database, gender_database, dob_database;
      String username = txtuser.getText().toString();
      String password = txtpass.getText().toString();
      try {
@@ -191,6 +191,9 @@ class AttemptLogin extends AsyncTask<String, String, String> {
         	 firstname_database = json.getString(TAG_FIRSTNAME);
 //        	 
         	 weight_database = json.getString(TAG_WEIGHT);
+        	 gender_database = json.getString(TAG_SEX);
+        	 dob_database = json.getString(TAG_DOB);
+        	 
         	 Log.d("Login Successful!", json.toString());
          	//Intent i = new Intent(Login.this, ReadComments.class);
          	Intent i = new Intent(getApplicationContext(), MainActivity.class);
@@ -198,6 +201,9 @@ class AttemptLogin extends AsyncTask<String, String, String> {
 //         	i.putExtra("database_address",user_address);
         	editor.putString("name", lastname_database + " " + firstname_database );
        	    editor.putString("weight", weight_database);
+       	    editor.putString("sex", gender_database);
+       	    editor.putString("DOB", dob_database);
+       	    
         	editor.commit();
          	finish();
 				startActivity(i);
