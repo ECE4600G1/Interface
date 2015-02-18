@@ -86,4 +86,6 @@
     <string name="logOutString">Log out</string>
     <string name="DOB">D.O.B.: MM/DD/YYYY</string>
     <string name="title_activity_editProfile">Edit Profile</string>
+    <string name="register">Register</string>
+    <string name="title_activity_register">Register</string>
 </resources>

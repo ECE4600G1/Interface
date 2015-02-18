@@ -46,7 +46,7 @@ public class EditUserSettings extends Activity {
 	    
 	    sex = (RadioGroup)findViewById(R.id.sex);
 	    
-	    save = (Button)findViewById(R.id.userSave);
+	    save = (Button)findViewById(R.id.userRegister);
 	    cancel = (Button)findViewById(R.id.userCancel);
 	    
 	    setUpPreferences();
@@ -70,7 +70,7 @@ public class EditUserSettings extends Activity {
 				
 				int id = sex.getCheckedRadioButtonId();
 				
-				if (id == R.id.Female){
+				if (id == R.id.Other){
 			        editor.putString("sex", "Female");
 			    }
 				else{

@@ -32,7 +32,7 @@ public class Login extends Activity implements OnClickListener{
 	EditText txtuser;
 	EditText txtpass;
 	Button login;
-	Button cancel;
+	Button register;
 	
 	public SharedPreferences settings;
 	public SharedPreferences.Editor editor;
@@ -44,7 +44,18 @@ public class Login extends Activity implements OnClickListener{
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private static final String TAG_USERNAME = "username";
+//    private static final String TAG_PASSWORD = "password";
     private static final String TAG_ADDRESS = "address";
+    private static final String TAG_FIRSTNAME = "firstname";
+    private static final String TAG_LASTNAME = "lastname";
+    private static final String TAG_PHONENUMBER = "phone";
+    private static final String TAG_DOB = "dob_string";
+    private static final String TAG_SEX = "sex";
+    private static final String TAG_WEIGHT = "weight";
+    
+    
+    
+    
     private ProgressDialog pDialog;
     
     // ---
@@ -61,9 +72,10 @@ public class Login extends Activity implements OnClickListener{
 		txtuser = (EditText)findViewById(R.id.txtuser);
 		txtpass = (EditText)findViewById(R.id.txtpass);
 		login = (Button)findViewById(R.id.login);
-		cancel = (Button)findViewById(R.id.cancel);
+		register = (Button)findViewById(R.id.register);
+		
 		login.setOnClickListener(this);
-		cancel.setOnClickListener(this);
+		register.setOnClickListener(this);
 		setUpPreferences();
 	}
 
@@ -99,9 +111,13 @@ public void onClick(View v) {
 //			Message(v);
 //		}
 //		break;
-	case R.id.cancel:
-		txtuser.setText("");
-		txtpass.setText("");
+	case R.id.register:
+		
+		Intent i = new Intent(getApplicationContext(), Register.class);
+		finish();
+		startActivity(i);
+
+		
 		break;
 	default:
 		break;
@@ -149,7 +165,7 @@ class AttemptLogin extends AsyncTask<String, String, String> {
 		// TODO Auto-generated method stub
 		 // Check for success tag
      int success;
-     String username_result,user_address;
+     String lastname_database, firstname_database,weight_database;
      String username = txtuser.getText().toString();
      String password = txtpass.getText().toString();
      try {
@@ -171,23 +187,25 @@ class AttemptLogin extends AsyncTask<String, String, String> {
 
          
          if (success == 1) {
-             username_result = json.getString(TAG_USERNAME);
-             user_address = json.getString(TAG_ADDRESS);
+        	 lastname_database = json.getString(TAG_LASTNAME);
+        	 firstname_database = json.getString(TAG_FIRSTNAME);
+//        	 
+        	 weight_database = json.getString(TAG_WEIGHT);
         	 Log.d("Login Successful!", json.toString());
          	//Intent i = new Intent(Login.this, ReadComments.class);
          	Intent i = new Intent(getApplicationContext(), MainActivity.class);
 //         	i.putExtra("database_user",username_result); // this is where the perference is sent through . need to see how perference is setup. 
 //         	i.putExtra("database_address",user_address);
-        	editor.putString("name", username_result);
-        	editor.putString("weight", user_address);
+        	editor.putString("name", lastname_database + " " + firstname_database );
+       	    editor.putString("weight", weight_database);
         	editor.commit();
          	finish();
 				startActivity(i);
-         	return "welcome " + json.getString(TAG_USERNAME) + " your address is :" + user_address;
+         	return "Welcome " + json.getString(TAG_FIRSTNAME);
          }else{
         	
          	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
-       //  	Toast.makeText(getApplicationContext(), json.getString(TAG_MESSAGE),Toast.LENGTH_LONG).show();
+         	Toast.makeText(getApplicationContext(), json.getString(TAG_MESSAGE),Toast.LENGTH_LONG).show();
          	return json.getString(TAG_MESSAGE);
          	
          }
