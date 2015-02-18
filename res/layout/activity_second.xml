@@ -1,8 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+   >
+
 
     <LinearLayout
         android:id="@+id/layout_isroom"
@@ -17,10 +19,48 @@
             android:text="Room" />
 
         <Button
+            android:id="@+id/btn_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Map" />
+
+        <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Return" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/read_xml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Data" />
+
+        <Button
+            android:id="@+id/check_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:visibility="visible" />
+
+        <ToggleButton
+            android:id="@+id/locationSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Record" />
+
+        <Button
+            android:id="@+id/pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause" />
     </LinearLayout>
 
     <ScrollView
@@ -32,91 +72,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/tv_jisuan_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Show results [Press start]"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_now_wifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Current wifi info[Press start]"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_read_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="read database and show：" />
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="View on map"
-        android:textSize="20sp" />
+</LinearLayout>
+        
+         
+ 
 
-    <Button
-        android:id="@+id/read_xml"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/layout_isroom"
-        android:text="Load Data" />
-
-    <Button
-        android:id="@+id/save_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/read_xml"
-        android:layout_alignBottom="@+id/read_xml"
-        android:layout_toRightOf="@+id/read_xml"
-        android:text="Save"
-        android:visibility="visible" />
-
-    <Button
-        android:id="@+id/check_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_isroom"
-        android:layout_toRightOf="@+id/save_data"
-        android:text="Start"
-        android:visibility="visible" />
-
-    <TextView
-        android:id="@+id/tv_jisuan_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/read_xml"
-        android:layout_margin="5dp"
-        android:layout_marginTop="24dp"
-        android:text="Show results [Press start]"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/tv_now_wifi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tv_jisuan_result"
-        android:layout_margin="5dp"
-        android:text="Current wifi info[Press start]"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/tv_read_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tv_now_wifi"
-        android:text="read database and show：" />
-
-    <Button
-        android:id="@+id/pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/check_data"
-        android:layout_alignBottom="@+id/check_data"
-        android:layout_toRightOf="@+id/check_data"
-        android:text="Pause" />
-
-    <ToggleButton
-        android:id="@+id/locationSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/check_data"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="24dp"
-        android:text="ToggleButton"
-        android:textOff="Record"
-        android:textOn="Record"  />
-
-</RelativeLayout>
+       
+   

@@ -45,7 +45,7 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 	public SharedPreferences postureSettings;
 	public SharedPreferences.Editor editor;
 	
-	ToggleButton recordButton;
+	private ToggleButton recordButton;
 	private Boolean saveState;
 	private String userName, fileName;
 	private Time now = new Time();
@@ -134,8 +134,8 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 									.append("***");
 						}
 
-						zx = zx / 5;
-						zy = zy / 5;
+						zx = ((200+10.81*(zx/5))*9.3677)/9362; //((200+10.81*n)*9.3677)/9362
+						zy = ((470+10.81*(zy/5))*9.3677)/6623; //((470+10.81*n)*9.3677)/6623 on y. 
 						
 						if (saveState){
 							fileOps.write(fileName, zx, zy);
@@ -201,7 +201,7 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 		btCheck = (Button) findViewById(R.id.check_data);
 		btCheck.setOnClickListener(this);
 
-		findViewById(R.id.save_data).setOnClickListener(this);
+		//findViewById(R.id.save_data).setOnClickListener(this);
 		tvXMLResult = (TextView) findViewById(R.id.tv_read_result);
 		tvNowWifi = (TextView) findViewById(R.id.tv_now_wifi);
 		tvJSResult = (TextView) findViewById(R.id.tv_jisuan_result);
@@ -293,10 +293,10 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 					Toast.LENGTH_SHORT).show();
 			new ImportDatabaseTask().execute();
 			break;
-		case R.id.save_data:
+		//case R.id.save_data:
 			
-			saveXML();
-			break;
+			//saveXML();
+			//break;
        
 		case R.id.check_data:
 			if (ispuase) {
@@ -324,7 +324,11 @@ public class Location extends Activity implements OnClickListener,SensorEventLis
 			break;
 		}
 	}
-	
+	public void onBackPressed() {
+		// do something on back.return;
+		startActivity(new Intent(Location.this, MainActivity.class));
+		finish();
+	}
 
 	private void doJisuan() {
 		new Thread(new Runnable() {
