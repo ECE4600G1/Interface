@@ -23,7 +23,7 @@ public class PostureService extends Service{
 	private Time now = new Time();
 	private PostureFileOperations fileOps = new PostureFileOperations();
 	private String fileName;
-	private Boolean STOP;
+	private Boolean STOP ;
 	
 	public static dataArrayFloat[] array_10_D1 = new dataArrayFloat[11];
 	public static dataArrayFloat[] array_10_D2 = new dataArrayFloat[11];
@@ -98,6 +98,12 @@ public class PostureService extends Service{
 		float yValue2 = intent.getFloatExtra("YVal2", 0.0f);
 		float zValue2 = intent.getFloatExtra("ZVal2", 0.0f);
 		
+		if (firstTime){
+		fileOps.write(fileName, duration, "",(short) 0, STOP, firstTime);
+		firstTime = false;
+		}
+		
+
 		
 		if (STOP){
 			updatePostureSummary();
@@ -1015,7 +1021,7 @@ public class PostureService extends Service{
 		
 		temp = convertTimeStr(duration) + " - " + postureStr;
 		
-		fileOps.write(fileName, duration, postureStr, postureNum, STOP);
+		fileOps.write(fileName, duration, postureStr, postureNum, STOP, firstTime);
 		
 		editor.putString("passPosture5", postureSettings.getString("passPosture4", ""));
 		editor.putString("passPosture4", postureSettings.getString("passPosture3", ""));
