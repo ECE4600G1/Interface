@@ -3,6 +3,7 @@ package com.ece4600.mainapp;
 
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import android.app.IntentService;
 import android.app.Service;
@@ -22,10 +23,11 @@ public class PostureService extends Service{
 	private Time now = new Time();
 	private PostureFileOperations fileOps = new PostureFileOperations();
 	private String fileName;
+	private Boolean STOP;
 	
 	public static dataArrayFloat[] array_10_D1 = new dataArrayFloat[11];
 	public static dataArrayFloat[] array_10_D2 = new dataArrayFloat[11];
-	public static int i,counter;
+	public static int i,counter, pieChartUpdate;
 	public static String postureState, newPosture, nowPosture,changePosture;
 	public static dataArrayFloat[] array_2d = new dataArrayFloat[2];
 	
@@ -63,6 +65,8 @@ public class PostureService extends Service{
 		probRight = 0.0;
 		
 		i = 0;
+		pieChartUpdate = 0;
+		
 		postureState = "STAND";
 		newPosture = "STAND";
 		changePosture = "STAND";
@@ -84,6 +88,7 @@ public class PostureService extends Service{
 		/*Called by the system when an app component requests that a 
 		 * Service start using startService()
 		 * Once started, it can run in the background indefinitely*/
+		STOP = intent.getBooleanExtra("STOP", false);
 		
 		float xValue1 = intent.getFloatExtra("XVal1", 0.0f);
 		float yValue1 = intent.getFloatExtra("YVal1", 0.0f);
@@ -94,7 +99,9 @@ public class PostureService extends Service{
 		float zValue2 = intent.getFloatExtra("ZVal2", 0.0f);
 		
 		
-		
+		if (STOP){
+			updatePostureSummary();
+		} else {
 		double dummy = Math.sqrt(xValue1 * xValue1 +  yValue1 * yValue1 +  zValue1 * zValue1 );
 		
 		if ((dummy >0.5)&&(dummy < 1.60))  {
@@ -114,12 +121,25 @@ public class PostureService extends Service{
 			calculatePosture();
 		}
 		
+		pieChartUpdate++;
+		if (pieChartUpdate == 10){
+			pieChartUpdate = 0;
+			updatePieChart();
+		}
+			
+		}
 		return super.onStartCommand(intent,flags, startId);
 	}//end of onStartCommand(...)
 
 	@Override 
 	public void onDestroy(){
 		/*Called when a service no longer used and being destroyed*/
+		Handler h = new Handler(Looper.getMainLooper());
+		h.removeCallbacksAndMessages(null);
+		
+		//To record last posture:
+		updatePostureSummary();
+		
 		super.onDestroy();
 	}// End of onDestroy
 	
@@ -268,48 +288,7 @@ public class PostureService extends Service{
 		
 		if (!newPosture.equals(postureState)){
 			// Where data is sent to posture class
-			nowMsTime = System.currentTimeMillis();
-			duration = nowMsTime - pastMsTime;
-			
-			String postureStr, temp;
-			short postureNum =0;
-			postureStr = "";
-			
-			//TODO organize this
-			if (postureState.equals("STAND")){
-				postureStr ="Standing";
-				postureNum = 3;
-			}else if (postureState.equals("SIT")){
-				postureStr ="Sitting";
-				postureNum = 1;
-			}
-			else if (postureState.equals("BEND")){
-				postureStr ="Bending";
-				postureNum = 2;
-			}else if (postureState.equals("LIEBACK")){
-				postureStr ="Laying down (back side)";
-				postureNum = 4;
-			}else if (postureState.equals("LIEFRONT")){
-				postureStr ="Laying down (front side)";
-				postureNum = 5;
-			}else if (postureState.equals("LIELEFT")){
-				postureStr ="Laying down (left side)";
-				postureNum = 7;
-			}else if (postureState.equals("LIERIGHT")){
-				postureStr ="Laying down (right side)";
-				postureNum = 6;
-			}
-
-			
-			temp = convertTimeStr(duration) + " - " + postureStr;
-			
-			fileOps.write(fileName, duration, postureStr, postureNum);
-			
-			editor.putString("passPosture5", postureSettings.getString("passPosture4", ""));
-			editor.putString("passPosture4", postureSettings.getString("passPosture3", ""));
-			editor.putString("passPosture3",postureSettings.getString("passPosture2", ""));
-			editor.putString("passPosture2", postureSettings.getString("passPosture1", ""));
-			editor.putString("passPosture1", temp);
+			updatePostureSummary();
 			postureState = newPosture;
 
 			Intent i = new Intent("POSTURE_EVENT");
@@ -346,20 +325,7 @@ public class PostureService extends Service{
 			  i.putExtra("POSTURE", newPosture);
 			  sendBroadcast(i);
 			 
-			  if (newPosture.equals("STAND")){
-				  editor.putInt("standTime", 1 + postureSettings.getInt("standTime", 0));
-				  editor.commit();
-			  }else if (newPosture.equals("SIT")){
-				  editor.putInt("sitTime", 1 + postureSettings.getInt("sitTime", 0));
-				  editor.commit();
-			  }else if(newPosture.equals("BEND")){
-				  editor.putInt("bendTime", 1 + postureSettings.getInt("bendTime", 0));
-				  editor.commit();
-			  }else{
-				  editor.putInt("lieTime", 1 + postureSettings.getInt("lieTime", 0));
-				  editor.commit();
-			  }
-			  
+
 			  
 			  
 			  
@@ -948,33 +914,34 @@ public class PostureService extends Service{
   
     	userName = postureSettings.getString("name", "Mike");
     	
-    	// Check for new day
-    	int day = Calendar.DAY_OF_MONTH;
-
+	    postureSettings = getSharedPreferences("posturePrefs",MODE_MULTI_PROCESS );
+	    editor = postureSettings.edit();	
     	
-      	postureSettings = getSharedPreferences("posturePrefs",MODE_MULTI_PROCESS );
-    	editor = postureSettings.edit();	  
-    	fileName = postureSettings.getString("fileName", "");
-    	//TODO put into if statement
-    	
-    	if (day != postureSettings.getInt("currentDay", 0)){
-    		editor.putInt("currentDay", day);
-    		editor.putInt("sitTime",0);
-    		editor.putInt("standTime",0);
-    		editor.putInt("bendTime",0);
-    		editor.putInt("lieTime",0);
-    		editor.commit();
-    		
-         	now.setToNow();
-         	date = now.month + "-" + String.valueOf(now.monthDay) + "-" + now.year;
-        	fName = userName+ " Posture " + date + ".csv";
-        	fileName = fName;
-        	fileOps.writeHeader(fName,userName, date);
-        	
-        	editor.putString("fileName", fileName);
-        	editor.commit();
-    		//TODO start new file to save
-    	}
+        Calendar c = new GregorianCalendar();
+	    int day =c.get(Calendar.DAY_OF_MONTH);
+  
+	    fileName = postureSettings.getString("fileName", "");
+	    //TODO put into if statement
+	    
+	    	if (day != postureSettings.getInt("currentDay", 0)){
+	    		editor.putInt("currentDay", day);
+	    		editor.putInt("sitTime",0);
+	    		editor.putInt("standTime",0);
+	    		editor.putInt("bendTime",0);
+	    		editor.putInt("lieTime",0);
+	    		editor.commit();
+	    		
+	         	now.setToNow();
+	         	date = now.format("%m-%d-%Y");
+	         	
+	        	fName = userName + " Posture " + date + ".csv";
+	        	fileName = fName;
+	        	fileOps.writeHeader(fName,userName, date);
+	        	
+	        	editor.putString("fileName", fileName);
+	        	editor.commit();
+	    		//TODO start new file to save
+	    	}
     }
 	
 	public String convertTimeStr(long timeMs){
@@ -1011,6 +978,68 @@ public class PostureService extends Service{
 			return totalTime;
 	}
 	
+	public void updatePostureSummary(){
+		nowMsTime = System.currentTimeMillis();
+		duration = nowMsTime - pastMsTime;
+		pastMsTime = nowMsTime;
+		
+		String postureStr, temp;
+		short postureNum =0;
+		postureStr = "";
+		
+		//TODO organize this
+		if (postureState.equals("STAND")){
+			postureStr ="Standing";
+			postureNum = 3;
+		}else if (postureState.equals("SIT")){
+			postureStr ="Sitting";
+			postureNum = 1;
+		}
+		else if (postureState.equals("BEND")){
+			postureStr ="Bending";
+			postureNum = 2;
+		}else if (postureState.equals("LIEBACK")){
+			postureStr ="Laying down (back side)";
+			postureNum = 4;
+		}else if (postureState.equals("LIEFRONT")){
+			postureStr ="Laying down (front side)";
+			postureNum = 5;
+		}else if (postureState.equals("LIELEFT")){
+			postureStr ="Laying down (left side)";
+			postureNum = 7;
+		}else if (postureState.equals("LIERIGHT")){
+			postureStr ="Laying down (right side)";
+			postureNum = 6;
+		}
+
+		
+		temp = convertTimeStr(duration) + " - " + postureStr;
+		
+		fileOps.write(fileName, duration, postureStr, postureNum, STOP);
+		
+		editor.putString("passPosture5", postureSettings.getString("passPosture4", ""));
+		editor.putString("passPosture4", postureSettings.getString("passPosture3", ""));
+		editor.putString("passPosture3",postureSettings.getString("passPosture2", ""));
+		editor.putString("passPosture2", postureSettings.getString("passPosture1", ""));
+		editor.putString("passPosture1", temp);
+	}
 	
+	
+	public void updatePieChart(){
+		  if (newPosture.equals("STAND")){
+			  editor.putInt("standTime", 1 + postureSettings.getInt("standTime", 0));
+			  editor.commit();
+		  }else if (newPosture.equals("SIT")){
+			  editor.putInt("sitTime", 1 + postureSettings.getInt("sitTime", 0));
+			  editor.commit();
+		  }else if(newPosture.equals("BEND")){
+			  editor.putInt("bendTime", 1 + postureSettings.getInt("bendTime", 0));
+			  editor.commit();
+		  }else{
+			  editor.putInt("lieTime", 1 + postureSettings.getInt("lieTime", 0));
+			  editor.commit();
+		  }
+		  
+	}
 	
 }

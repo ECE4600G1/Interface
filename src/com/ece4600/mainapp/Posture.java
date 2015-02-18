@@ -2,6 +2,7 @@ package com.ece4600.mainapp;
 
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.achartengine.GraphicalView;
 
@@ -27,6 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,10 +40,11 @@ import android.widget.TextView;
 
 
 public class Posture extends Activity {
-	
+	private Time now = new Time();
 	public SharedPreferences postureSettings;
 	public SharedPreferences.Editor editor;
 	public OnSharedPreferenceChangeListener settingsListen;
+	public String fileName;
 	
 	
 	private BluetoothAdapter myBluetoothAdapter;
@@ -383,6 +386,7 @@ public class Posture extends Activity {
 		   }};
 		   
 		   public void restorePreferences(){
+			   String userName, fName, date;
 			   pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
 		    			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
 		       paintGraph();
@@ -393,6 +397,8 @@ public class Posture extends Activity {
 		       posture3.setText(postureSettings.getString("passPosture3", "3."));
 		       posture4.setText(postureSettings.getString("passPosture4", "4."));
 		       posture5.setText(postureSettings.getString("passPosture5", "5."));
+		       
+		
 		       
 		   }
 	

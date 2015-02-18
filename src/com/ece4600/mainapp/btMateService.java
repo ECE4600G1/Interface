@@ -403,6 +403,14 @@ public class btMateService extends Service {
 			else if(action == 'r'){
 				if ( (mateConnected == connectState.CONNECTED) & (mateRead.mateState == deviceState.READ)){
 					mateRead.saveData = true;
+					
+			    	settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
+			    	editor = settings.edit();
+			    	editor.putBoolean("recordState",true);
+			    	editor.commit();
+			    	
+			    	settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
+			    	editor = settings.edit();
 					startService(i);
 					Log.i(TAG, "Recording");
 				}
@@ -410,6 +418,15 @@ public class btMateService extends Service {
 			else if(action == 'n'){
 				if ( (mateConnected == connectState.CONNECTED) & (mateRead.mateState == deviceState.READ)){
 					mateRead.saveData = false;
+					
+					settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
+			    	editor = settings.edit();
+			    	editor.putBoolean("recordState",false);
+			    	editor.commit();
+			    	
+			    	settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
+			    	editor = settings.edit();
+					
 					stopService(i);
 					bluetoothQueueForSaving.clear();
 					Log.i(TAG, "Stopped recording");

@@ -6,10 +6,25 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
-    <item android:id="@+id/heartmenu_loca" android:title="Location"></item>
-    <item android:id="@+id/heartmenu_post" android:title="Posture"></item>
-    <item android:id="@+id/heartmenu_pedo" android:title="Pedometer"></item>
-    <item android:id="@+id/heartmenu_about" android:title="About"></item>
+        android:title="@string/action_settings" 
+        android:visible="true"/>
+    <item android:id="@+id/heartmenu_loca" 
+        android:title="Location" 
+        android:visible="true" 
+        android:orderInCategory="100">
+        
+    </item>
+    <item android:id="@+id/heartmenu_post" 
+        android:title="Posture" 
+        android:visible="true" 
+        android:orderInCategory="100"></item>
+    <item android:id="@+id/heartmenu_pedo"
+         android:title="Pedometer" 
+         android:enabled="true" 
+         android:orderInCategory="100"></item>
+    <item android:id="@+id/heartmenu_about" 
+        android:title="About" 
+        android:visible="true" 
+        android:orderInCategory="100"></item>
 
 </menu>

@@ -111,7 +111,7 @@
         android:layout_marginRight="15dp"
         android:layout_weight=".5"
         android:background="@android:drawable/btn_default"
-        android:text="@string/register" />
+        android:text="Register" />
 
     <Button
         android:id="@+id/login"

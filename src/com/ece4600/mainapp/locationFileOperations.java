@@ -12,7 +12,7 @@ import android.os.Environment;
 import android.text.format.Time;
 import android.util.Log;
 
-public class PostureFileOperations {
+public class locationFileOperations {
 	 /*Notes:
 	  * Time is measured in ms
 	  * 
@@ -20,10 +20,10 @@ public class PostureFileOperations {
 	  private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS", Locale.CANADA);
 	  private final int sampleRate = 300;
 	  
-	  private final String PATH = Environment.getExternalStorageDirectory() + "/wellNode/Posture";
+	  private final String PATH = Environment.getExternalStorageDirectory() + "/wellNode/Location";
 	  private Time now = new Time();
 	  
-	   public PostureFileOperations(){
+	   public locationFileOperations(){
 		   createPostureFolder();
 	   }
 	   
@@ -41,7 +41,8 @@ public class PostureFileOperations {
 		          
 		         
 		          String writeThis;
-		          writeThis =  "Posture Recognition" + "\r\n" ;
+		          //Title
+		          writeThis =  "Location" + "\r\n" ;
 		          fw.append(writeThis);
 		          
 		          writeThis =  "File name: " + fname;
@@ -65,10 +66,10 @@ public class PostureFileOperations {
 		          
 		          
 		          fw.append("\r\n");
-		          fw.append("Time Stamp,Duration,Posture #,Posture");
+		          fw.append("Time Stamp,X,Y");
 		          fw.append("\r\n");
 		          
-		          fw.append(time + ",");
+		          
 		          fw.close();
 		          Log.d("Suceess","Sucess");
 		          
@@ -80,7 +81,7 @@ public class PostureFileOperations {
 	   }
 	   
 	   
-	   public void write(String fname, double postureTime, String postureStr, short postureNum, Boolean STOP){
+	   public void write(String fname, double X, double Y){
 		  
 	      try {
 	        
@@ -92,13 +93,11 @@ public class PostureFileOperations {
 	        FileWriter fw = new FileWriter(file.getAbsolutePath(),true);
 
 	        //Time Stamp, Duration,Posture #, Posture	
-	    	fw.append(postureTime + ",");
-	    	fw.append(postureNum + ",");
-	    	fw.append(postureStr);
-	    	fw.append("\r\n");
-	    	if(!STOP){
 	    	fw.append(getTimeStamp() + ",");
-	    	}
+	    	fw.append(String.valueOf(X)+ ",");
+	    	fw.append(String.valueOf(Y));
+	    	fw.append("\r\n");
+	    	
 	        fw.close();
 	   
 	        return ;
@@ -146,6 +145,7 @@ public class PostureFileOperations {
 	   }
 
 		private void createPostureFolder(){
+			
 	  		if(!(new File(PATH)).exists()) 
 	  		new File(PATH).mkdirs();
 	  	}
