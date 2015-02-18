@@ -80,7 +80,7 @@ public class PostureFileOperations {
 	   }
 	   
 	   
-	   public void write(String fname, double postureTime, String postureStr, short postureNum, Boolean STOP){
+	   public void write(String fname, double postureTime, String postureStr, short postureNum, Boolean STOP, Boolean firstTime){
 		  
 	      try {
 	        
@@ -92,6 +92,10 @@ public class PostureFileOperations {
 	        FileWriter fw = new FileWriter(file.getAbsolutePath(),true);
 
 	        //Time Stamp, Duration,Posture #, Posture	
+	        if (firstTime){
+	        	fw.append(getTimeStamp() + ",");
+	        } else{
+	        
 	    	fw.append(postureTime + ",");
 	    	fw.append(postureNum + ",");
 	    	fw.append(postureStr);
@@ -99,6 +103,7 @@ public class PostureFileOperations {
 	    	if(!STOP){
 	    	fw.append(getTimeStamp() + ",");
 	    	}
+	        }
 	        fw.close();
 	   
 	        return ;

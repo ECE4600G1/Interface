@@ -398,6 +398,21 @@ public class btMateService extends Service {
 			    // stop receiving data device
 				mateRead.stopStream();
 				Log.i(TAG, "Stopped stream");
+				if(mateRead.saveData){
+						mateRead.saveData = false;
+				
+						settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
+						editor = settings.edit();
+		    			editor.putBoolean("recordState",false);
+		    			editor.commit();
+		    	
+		    			settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
+		    			editor = settings.edit();
+				
+						stopService(i);
+						bluetoothQueueForSaving.clear();
+						Log.i(TAG, "Stopped recording");
+					}
 				}
 			}
 			else if(action == 'r'){

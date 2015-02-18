@@ -164,18 +164,26 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
+                android:id="@+id/postureTimeLine"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.35"
+                android:text="Timeline" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.35"
                 android:text="Clear" />
 
             <Button
                 android:id="@+id/returnpost"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.35"
                 android:text="@string/returnpost" />
+
         </TableRow>
 
     </LinearLayout>
