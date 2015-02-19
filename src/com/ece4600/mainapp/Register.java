@@ -38,7 +38,7 @@ public class Register extends Activity {
 	EditText firstName_android, lastName_android, weight_android,username_android,password_android,phone_android,address_android;
 	RadioGroup sex_android;
     // database constants defined here //
-	private static final String LOGIN_URL = "http://wbanproject.com/webservice/register.php";
+	private static final String LOGIN_URL = "http://wellnode.ca/webservice/register.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private static final String TAG_USERNAME = "username";

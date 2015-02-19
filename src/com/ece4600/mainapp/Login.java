@@ -40,7 +40,7 @@ public class Login extends Activity implements OnClickListener{
 	//database related constants
 	
 	JSONParser jsonParser = new JSONParser();
-	private static final String LOGIN_URL = "http://wbanproject.com/webservice/loginandroid.php";
+	private static final String LOGIN_URL = "http://wellnode.ca/webservice/loginandroid.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private static final String TAG_USERNAME = "username";
