@@ -143,7 +143,7 @@ public class Heartrate extends Activity {
 	@Override
 	protected void onPause() {
 		Intent i = new Intent("BTMATE_EVENT");
-		i.putExtra("command", 'p');
+		i.putExtra("command", 'i');
 		sendBroadcast(i);
 		
 		 //Intent intent2 = new Intent(Heartrate.this, btMateService.class);
@@ -243,7 +243,7 @@ public class Heartrate extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(Heartrate.this, MainActivity.class));
-				finish();
+				//finish();
 				
 			}
 		});

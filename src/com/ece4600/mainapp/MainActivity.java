@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
@@ -30,28 +31,11 @@ public class MainActivity extends Activity {
 	public SharedPreferences settings;
 	public SharedPreferences.Editor editor;
 	
+	public SharedPreferences postureSettings;
+	public OnSharedPreferenceChangeListener posturesListen;
+	
 	TextView  dob, weight,name,sex;
 	
-	//public static final String RECEIVE_JSON = "com.your.ece4600.RECEIVE_JSON";
-//	private TextView user_name;
-//	private TextView user_gender;
-	
-	private BroadcastReceiver broadcastRx = new BroadcastReceiver() {
-	    @Override
-	    public void onReceive(Context context, Intent intent) {
-	        //if(intent.getAction().equals(RECEIVE_JSON)) {
-	    	int datapassed = intent.getIntExtra("DATAPASSED", 0);
-	    	  
-	    	  Toast.makeText(MainActivity.this,
-	    	    "Triggered by Service!\n"
-	    	    + "Data passed: " + String.valueOf(datapassed),
-	    	    Toast.LENGTH_LONG).show();
-				//Log.i("MainActivity", msg);
-	        //}
-	    	  
-	    
-	    }
-	};
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,22 +72,6 @@ public class MainActivity extends Activity {
         setupMessageButton3();
         setupMessageButton4();
         
-        //
-        
-        
-        
-        
-        //Intent Login_window = new Intent(this, Login.class); // adds the log in window here
-        //startActivity(Login_window);
-        
-        //LocalBroadcastManager bManager = LocalBroadcastManager.getInstance(this);
-        //IntentFilter intentFilter = new IntentFilter();
-        //intentFilter.addAction(bleService.MY_ACTION);
-        //registerReceiver(broadcastRx, intentFilter);
-        
-        //Start our own service
-       // Intent intent = new Intent(MainActivity.this, bleService.class);
-        //startService(intent);
         
         name = (TextView)findViewById(R.id.name);
         sex = (TextView)findViewById(R.id.gender);
@@ -112,9 +80,25 @@ public class MainActivity extends Activity {
         
   	  	setUpPreferences();
   	  	restorePreferences();
+  	  	setUpPostureListener();
         
     }
 
+    @Override
+	 protected void onDestroy() {
+	  super.onDestroy();
+	  //un-register BroadcastReceiver
+	  postureSettings.unregisterOnSharedPreferenceChangeListener(posturesListen);
+	 }
+
+	
+
+	@Override
+	
+	protected void onResume() {
+	super.onResume();
+	postureSettings.registerOnSharedPreferenceChangeListener(posturesListen);
+	}
     private void setupMessageButton1(){
     	Button messageButton = (Button)findViewById(R.id.heart);
     	messageButton.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +192,7 @@ public class MainActivity extends Activity {
 		//Get reference to layout:
 		LinearLayout layout =(LinearLayout)findViewById(R.id.posturePie);
 		//clear the previous layout:
-		//layout.removeAllViews();
+		layout.removeAllViews();
 		//add new graph:
 		if (layout != null)
 				layout.addView(lineView);
@@ -218,6 +202,8 @@ public class MainActivity extends Activity {
 	public void setUpPreferences(){
     	settings = getSharedPreferences("userPrefs", MODE_PRIVATE);
     	editor = settings.edit();
+    	
+    	postureSettings = getSharedPreferences("posturePrefs", MODE_PRIVATE );
     }
 	
 	public void restorePreferences(){
@@ -226,5 +212,23 @@ public class MainActivity extends Activity {
 		weight.setText("WEIGHT: " + settings.getString("weight", "xxx"));
 		sex.setText("GENDER: " + settings.getString("sex", "Male"));
 		
+		pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
+  			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
+		paintGraph();
+		
+	}
+	
+	public void setUpPostureListener(){
+		 posturesListen = new OnSharedPreferenceChangeListener(){
+		      public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+		    	  pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
+		    			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
+		    	  paintGraph();
+		    	  
+		    	  
+		      }
+		};
+		postureSettings.registerOnSharedPreferenceChangeListener(posturesListen);
+
 	}
 }

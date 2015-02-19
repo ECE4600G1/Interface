@@ -52,7 +52,7 @@ public class PostureTimeLine extends Activity {
 	}
 	
 	public void readFile(){
-		double x;
+		double x, xLast;
 		int m = 0;
 		
 		filePath = PATH + "/" + fileName;
@@ -61,6 +61,7 @@ public class PostureTimeLine extends Activity {
 		String line = "";
 		
 		x = 0;
+		xLast = 0;
 		try {
 			 
 			br = new BufferedReader(new FileReader(filePath));
@@ -73,10 +74,16 @@ public class PostureTimeLine extends Activity {
 			while ((line = br.readLine()) != null) {
 				String[] data = line.split(",");
 				
-				Log.i("TEST",data[1] +"," + data[2]);
+				//Log.i("TEST",data[1] +"," + data[2]);
 				
 				series.add(x, Double.valueOf(data[2]));
 				x = x + Double.valueOf(data[1]);
+				if( (x - xLast) >= 1000){
+					xLast = x;
+					mRenderer.addXTextLabel(x,data[0]);
+				}else{
+					mRenderer.addXTextLabel(x,"");
+				}
 				
 				//dataLine.addPoint(m, Double.parseDouble(data[0]));
 				
@@ -126,9 +133,10 @@ public class PostureTimeLine extends Activity {
 				mRenderer.setYTitle("Posture");
 				mRenderer.setPointSize(1);
 				mRenderer.setShowGrid(true);
-				//mRenderer.setXLabels(0);		
+				mRenderer.setXLabels(0);		
+				mRenderer.setAxisTitleTextSize(20);
 				mRenderer.addSeriesRenderer(renderer);	
-				mRenderer.setLabelsTextSize(25);
+				mRenderer.setLabelsTextSize(15);
 				mRenderer.setLegendTextSize(25);
 				mRenderer.setGridColor(Color.WHITE);
 				mRenderer.setXLabelsAngle(-45);

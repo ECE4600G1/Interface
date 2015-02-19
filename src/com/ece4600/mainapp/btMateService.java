@@ -224,6 +224,7 @@ public class btMateService extends Service {
 	    public deviceState mateState;
 	    public boolean saveData;
 	    private   ByteBuffer bb;
+	    private int waitCount;
 	    
 	    public ReadThread(BluetoothSocket socket) {
 	    	saveData = false;
@@ -248,6 +249,7 @@ public class btMateService extends Service {
 	        mmInStream = tmpIn;
 	        mmOutStream = tmpOut;
 	        
+	        waitCount = 0;
 	       // startStream();
 	       
 	       
@@ -262,8 +264,6 @@ public class btMateService extends Service {
 	        // Keep listening to the InputStream until an exception occurs
 	        while (status) {
 	            try {
-	                // Read from the InputStream
-	            	//numBytes = mmInStream.read(buffer);
 	            	
 	            	numBytes = mmInStream.available();
 	            	
@@ -271,6 +271,7 @@ public class btMateService extends Service {
 	                b = (byte) mmInStream.read();
 	            
 	                if(startOfInt){
+	                	waitCount = 0;
 	                	bb.put(b);
 	                	
 	                	
@@ -300,15 +301,24 @@ public class btMateService extends Service {
 	                	else{
 	                		ptr++;
 	                	}
+	            	}else{
+	            		if (waitCount >= 50000){//This may mean that the bluetooth Mate timed out
+	            			status = false;
+	            			cancel();
+	            	
+
+	            		}else{
+	            			waitCount++;
+	            		}
+	            		
 	            	}
 	                
-	                if (b == '\n'){
+	                	if (b == '\n'){
 	                	startOfInt = true;
-	                }
+	                	}
 	            	}
 	            	
-	                // Send the obtained bytes to the UI activity
-	                //mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+	                
 	            } catch (IOException e) {
 	                break;
 	            }
@@ -374,6 +384,18 @@ public class btMateService extends Service {
 	        if (saveData){
 	        	Intent i = new Intent(btMateService.this, ECGdataSaveService.class);
 	        	stopService(i);
+	        	
+				settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
+				editor = settings.edit();
+    			editor.putBoolean("recordState",false);
+    			editor.commit();
+    	
+    			settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
+    			editor = settings.edit();
+		
+				bluetoothQueueForSaving.clear();
+				Log.i(TAG, "Stopped recording");
+				stopSelf();
 	        }
 	    }
 	}
@@ -446,6 +468,12 @@ public class btMateService extends Service {
 					bluetoothQueueForSaving.clear();
 					Log.i(TAG, "Stopped recording");
 				}
+			}else if(action == 'i'){
+					activityState = false;
+					bluetoothMateQueueForUI.clear();
+			}
+			else if(action == 'o'){
+					activityState = true;
 			}
 			 
        
