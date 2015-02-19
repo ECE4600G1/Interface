@@ -80,17 +80,17 @@ public class Location_map extends Activity {
 
         ImageView markerB = new ImageView(this);
         markerB.setImageResource(R.drawable.maps_marker_blue_small);
-        markerB.setTag("Paris");
+        markerB.setTag("User Location");
         markerB.setOnClickListener( markerClickListener );
         
-       // tileView.addMarker(markerA, 0.1, 0.16, -0.5f, -1.0f); // horizontal, vertical 
-        tileView.addMarker(markerB, 0.1, 0.16, -0.5f, -1.0f);
+       // tileView.addMarker(markerA, 0.1, 0.16, -0.5f, -a1.0f); // horizontal, vertical 
+        
         //        tileView.removeMarker(markerA);
      
         Bundle bundle =getIntent().getExtras();
         x_pos = bundle.getDouble("zx");
         y_pos = bundle.getDouble("zy");
-        		
+        tileView.addMarker(markerB, x_pos, y_pos+0.05,-0.5f, -1.0f);		
 
     }
     //n,n should be at ((200+10.81*n)*9.3677)/9362 on x and ((470+10.81*n)*9.3677)/6623 on y. 
