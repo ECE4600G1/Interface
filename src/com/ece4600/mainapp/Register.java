@@ -206,7 +206,7 @@ public class Register extends Activity {
 
 	     int id = sex_android.getCheckedRadioButtonId();
 			
-			if (id == R.id.Female){
+			if (id == R.id.Female1){
 		        sex = "Female";
 		    }
 			else if (id == R.id.Male)
@@ -359,3 +359,4 @@ public class Register extends Activity {
 //	}
 
 }
+

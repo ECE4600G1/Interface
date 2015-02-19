@@ -148,7 +148,7 @@
             android:layout_height="wrap_content" >
 
             <RadioButton
-                android:id="@+id/RadioButton01"
+                android:id="@+id/Female1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Female"
