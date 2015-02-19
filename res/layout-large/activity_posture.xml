@@ -179,8 +179,10 @@
               
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Posture time line" 
-                android:layout_weight="1"/>
+                android:text="Posture Time Line" 
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+            	android:textColor="#FFFFFF"/>
 
         </TableRow>
 
@@ -195,14 +197,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Clear" />
+                android:text="Clear" 
+                android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
             <Button
                 android:id="@+id/returnpost"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:text="@string/returnpost" />
+                android:text="@string/returnpost" 
+                android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
         </TableRow>
 

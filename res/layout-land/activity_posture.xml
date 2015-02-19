@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/subpost"
         android:layout_alignParentBottom="true"
-        android:text="@string/returnpost" />
+        android:text="@string/returnpost" 
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/subpost"

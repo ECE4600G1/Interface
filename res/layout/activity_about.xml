@@ -79,6 +79,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView6"
         android:layout_marginTop="30dp"
-        android:text="Return" />
+        android:text="Return" 
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
 </RelativeLayout>

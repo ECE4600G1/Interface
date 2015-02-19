@@ -2,7 +2,7 @@
 <resources>
 <string name="app_name">wellNode</string>
 <string name="hello_world">Hello world!</string>
-<string name="action_settings">Settings</string>
+<string name="action_settings">Module Manager</string>
 <string name="photo">photo</string>
 <string name="name">NAME: Mike</string>
 <string name="gender">GENDER: Male</string>
@@ -10,7 +10,7 @@
 <string name="phone">PHONE: XXX-XXXX</string>
 <string name="info">INFORMATION:</string>
 <string name="pedo">Pedometer</string>
-<string name="heart">Heart Rate</string>
+<string name="heart">Electrocardiogram</string>
 <string name="loca">Location</string>
 <string name="post">Posture</string>
 <string name="room">Room</string>
@@ -49,7 +49,7 @@
 <string name="map">Map</string>
 <string name="reset">Reset</string>
 <string name="title_activity_display_wifi">DisplayWifi</string>
-<string name="title_activity_bluetooth">Bluetooth Settings</string>
+<string name="title_activity_bluetooth">Module Manager</string>
 <string name="blueon">Turn On</string>
 <string name="bluevisible">Get Visible</string>
 <string name="blueposture">Posture</string>

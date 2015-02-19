@@ -24,7 +24,9 @@
         android:layout_height="wrap_content"
 
         android:layout_alignParentBottom="true"
-        android:text="@string/pedo" />
+        android:text="@string/pedo"
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/loca"
@@ -32,7 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/loca" />
+        android:text="@string/loca" 
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
     <Button
         android:id="@+id/post"
@@ -41,7 +45,9 @@
         android:layout_alignBaseline="@+id/heart"
         android:layout_alignBottom="@+id/heart"
         android:layout_alignRight="@+id/loca"
-        android:text="@string/post" />
+        android:text="@string/post" 
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
     <Button
         android:id="@+id/heart"
@@ -49,7 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/pedo"
         android:layout_marginBottom="23dp"
-        android:text="@string/heart" />
+        android:text="@string/heart" 
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/weightSmall"
