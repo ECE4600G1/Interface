@@ -40,14 +40,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="@string/pedo" />
+            android:text="@string/pedo"
+             android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/loca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="@string/loca" />
+            android:text="@string/loca" 
+             android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
     </TableRow>
 
     <TableRow
@@ -62,7 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="@string/post" />
+            android:text="@string/post"
+             android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/heart"
@@ -70,19 +76,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:layout_weight=".5"
-            android:text="@string/heart" />
+            android:text="@string/heart" 
+             android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
     </TableRow>
-
-    <TextView
-        android:id="@+id/locationHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/pedoHeading"
-        android:layout_alignBottom="@+id/pedoHeading"
-        android:layout_toRightOf="@+id/DOB"
-        android:text="Location:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/pedoSteps"

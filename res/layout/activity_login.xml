@@ -23,7 +23,6 @@
         android:id="@+id/user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtpass"
         android:layout_alignLeft="@+id/pass"
         android:layout_marginBottom="16dp"
         android:text="@string/user"
@@ -32,96 +31,60 @@
         android:typeface="monospace" />
 
     <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtuser"
-        android:layout_alignParentBottom="true" >
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TableRow
-                android:id="@+id/tableRow2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </TableRow>
-        </TableLayout>
-
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </GridLayout>
-
-    </TableRow>
-
-    <EditText
-        android:id="@+id/txtpass"
+        android:id="@+id/tableRow6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login"
-        android:layout_alignRight="@+id/txtuser"
-        android:layout_marginBottom="25dp"
-        android:ems="10"
-        android:hint="Enter Password"
-        android:inputType="textPassword"
-        android:textColor="#F000"
-        android:textColorHint="#5000" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@drawable/buttonshape"
+            android:text="@string/login"
+            android:textColor="#FFFFFF"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_weight=".5" 
+            android:text="Register"
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF" />
+    </TableRow>
 
     <EditText
         android:id="@+id/txtuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtpass"
+        android:layout_above="@+id/tableRow6"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
         android:ems="10"
         android:hint="Enter Username"
         android:singleLine="true"
+        android:textColor="#F000"
+        android:textColorHint="#5000" />
+
+    <EditText
+        android:id="@+id/txtpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tableRow6"
+        android:layout_alignLeft="@+id/txtuser"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:inputType="textPassword"
         android:textColor="#F000"
         android:textColorHint="#5000" >
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tableRow1"
-        android:layout_alignRight="@+id/tableRow1"
-        android:layout_marginRight="15dp"
-        android:layout_weight=".5"
-        android:background="@android:drawable/btn_default"
-        android:text="Register" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tableRow1"
-        android:layout_alignLeft="@+id/user"
-        android:layout_weight=".5"
-        android:background="@android:drawable/btn_default"
-        android:text="@string/login"
-        android:visibility="visible" />
 
 </RelativeLayout>
