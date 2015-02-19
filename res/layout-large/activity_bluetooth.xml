@@ -20,15 +20,18 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/bluetooth"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            />
 
         <Button
             android:id="@+id/bluemain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            
             android:text="@string/bluemain"
-            android:textSize="20sp" />
+            android:textSize="20sp" 
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
         <TableRow
             android:id="@+id/tableRow"
@@ -40,30 +43,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".35"
-                android:gravity="center_horizontal"
+                
                 android:onClick="onClick"
                 android:text="@string/blueon"
-                android:textSize="20sp" />
+                android:textSize="20sp" 
+                android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
             <Button
                 android:id="@+id/blueoff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".35"
-                android:gravity="center_horizontal"
+                
                 android:onClick="onClick"
                 android:text="@string/blueoff"
-                android:textSize="20sp" />
+                android:textSize="20sp" 
+                android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
             <Button
                 android:id="@+id/bluecancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".35"
-                android:gravity="center_horizontal"
+                
                 android:onClick="onClick"
                 android:text="@string/bluecancel"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF" />
         </TableRow>
 
     </LinearLayout>
@@ -73,7 +82,8 @@
         android:layout_height="150dp"
         android:layout_alignTop="@+id/linearlayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp" >
+        android:layout_marginTop="140dp" 
+        >
 
         <Button
             android:id="@+id/blueECG"
@@ -81,7 +91,9 @@
             android:layout_height="wrap_content"
             android:minWidth="400dip"
             android:text="ECG"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/bluepedometer"
@@ -91,7 +103,9 @@
             android:layout_below="@+id/blueposture"
             android:minWidth="330dip"
             android:text="@string/bluepedometer"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/blueposture"
@@ -101,7 +115,9 @@
             android:layout_below="@+id/blueECG"
             android:minWidth="400dip"
             android:text="@string/blueposture"
-            android:textSize="20sp" />
+            android:textSize="20sp" 
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
         <Switch
             android:id="@+id/blueECGState"

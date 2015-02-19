@@ -2,15 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.Haiyue.profile_v1.MainActivity" >
 
-    <item android:id="@+id/editProfile" android:title="@string/editProfile"></item>
-    <item android:id="@+id/mainmenu_logout" android:title="@string/logOutString"></item>
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+    <item android:id="@+id/action_settings" android:orderInCategory="1" android:showAsAction="never" android:title="@string/action_settings" /><item android:id="@+id/editProfile" android:title="@string/editProfile" android:orderInCategory="2"></item>
     
     
-    <item android:id="@+id/aboutPage" android:title="@string/aboutString"></item>
+    
+    
+    <item android:id="@+id/aboutPage" android:title="@string/aboutString" android:orderInCategory="3"></item><item android:id="@+id/mainmenu_logout" android:title="@string/logOutString" android:orderInCategory="4"></item>
 
 </menu>

@@ -244,7 +244,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:text="Register" />
+        android:text="Register" 
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
     <TableRow
         android:id="@+id/tableRow8"
@@ -256,6 +258,8 @@
         android:id="@+id/userCancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Cancel" />
+        android:text="Cancel" 
+        android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"/>
 
 </TableLayout>
