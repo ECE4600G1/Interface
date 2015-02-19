@@ -154,9 +154,20 @@ public class Bluetooth extends Activity{
 					
 					stopService(Postureintent);
 				} else{
+					if(ECGState.isChecked()){
+						
+						ECGState.setChecked(false);
+						
+						editor.putBoolean("blueECG", false);
+						editor.commit();
+						Intent ECGintent = new Intent(Bluetooth.this, btMateService.class);
+						stopService(ECGintent);
+					}
+					
 					postureState.setChecked(true);
 					editor.putBoolean("bluePosture", true);
 					editor.commit();
+					
 					startService(Postureintent);
 				}
 		        
@@ -237,6 +248,26 @@ public class Bluetooth extends Activity{
 					
 					stopService(ECGintent);
 				} else{
+					
+					if(pedometerState.isChecked()){
+						pedometerState.setChecked(false);
+						editor.putBoolean("bluePedo", false);
+						editor.commit();
+				        Intent pedointent = new Intent(Bluetooth.this, bleService_pedo.class);
+						stopService(pedointent);
+						pedometerState.setChecked(false);
+						
+					}
+					
+					if (postureState.isChecked()){
+						postureState.setChecked(false);
+						
+						editor.putBoolean("bluePosture", false);
+						editor.commit();
+					    Intent Postureintent = new Intent(Bluetooth.this, bleService.class);
+						stopService(Postureintent);
+					}
+					
 					ECGState.setChecked(true);
 					editor.putBoolean("blueECG", true);
 					editor.commit();

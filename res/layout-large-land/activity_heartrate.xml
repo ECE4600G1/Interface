@@ -30,42 +30,38 @@
             
         </TableRow>
         
-        
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
+            android:layout_height="150dp"
             android:layout_weight="0.1" >
 
             <Button
                 android:id="@+id/startButton"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".25"
-                android:minWidth="100dp"
-                android:text="@string/startTxt"
-                 android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF" />
+               
+                
+                android:text="@string/startTxt" 
+                android:textColor="#FFFFFF" 
+                android:background="@drawable/buttonshape"/>
 
             <Button
                 android:id="@+id/stopButton"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".25"
-                android:minWidth="100dp"
                 android:text="@string/stopTxt" 
-                 android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF"/>
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF" />
 
             <ToggleButton
                 android:id="@+id/recordButton"
-                android:layout_width="120dp"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
-                
-               android:background="@drawable/mytoggle"
-                android:textColor="#FFFFFF" 
                 android:textOff="Record"
-                android:textOn="Record" />
+                android:textOn="Record" 
+                 android:background="@drawable/mytoggle"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/returnheart"
@@ -73,8 +69,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".15"
                 android:text="@string/returnheart" 
-                 android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF"/>
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         
