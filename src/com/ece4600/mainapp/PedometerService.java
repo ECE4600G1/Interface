@@ -199,10 +199,6 @@ public class PedometerService extends Service{
 				public void run(){
 					Intent i = new Intent("PEDOMETER_EVENT");
 					
-					i.putExtra("MaxX", MaxX);
-					i.putExtra("MaxY", MaxY);
-					i.putExtra("MaxZ", MaxZ);
-					
 					i.putExtra("CurrentX", lastX);
 					i.putExtra("CurrentY", lastY);
 					i.putExtra("CurrentZ", lastZ);

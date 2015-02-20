@@ -11,26 +11,41 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/pedo_targets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/pedo_targets"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/pedo_targetsnum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/pedo_targetsnum"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/pedo_step"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pedo_step"
             android:gravity="center"
-            
+            android:text="@string/pedo_step"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/pedo_stepnum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pedo_stepnum"
             android:gravity="center"
+            android:text="@string/pedo_stepnum"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -45,9 +60,16 @@
             android:id="@+id/pedo_speednum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pedo_speednum"
             android:gravity="center"
+            android:text="@string/pedo_speednum"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
 
         <TableRow
             android:id="@+id/tableRow6"
@@ -60,8 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center"
-                android:text="@string/pedo_start"
-                android:onClick="onClick" 
+                android:onClick="onClick"
+                android:text="@string/pedo_start" 
                 android:background="@drawable/buttonshape"
             	android:textColor="#FFFFFF"/>
 
@@ -71,11 +93,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center"
-                android:text="@string/pedo_stop"
-                android:onClick="onClick" 
+                android:onClick="onClick"
+                android:text="@string/pedo_stop" 
                 android:background="@drawable/buttonshape"
             	android:textColor="#FFFFFF"/>
-
         </TableRow>
 
         <TableRow
@@ -89,10 +110,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center"
-                android:text="@string/pedo_reset" 
-                android:onClick="onClick" 
+                android:onClick="onClick"
+                android:text="@string/pedo_reset"
                 android:background="@drawable/buttonshape"
-            	android:textColor="#FFFFFF"/>
+            	android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/returnpedo"
@@ -100,13 +121,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center"
-                android:text="@string/returnpedo" 
                 android:onClick="onClick"
+                android:text="@string/returnpedo" 
                 android:background="@drawable/buttonshape"
-            	android:textColor="#FFFFFF" />
-
+            	android:textColor="#FFFFFF"/>
         </TableRow>
-
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="160dip"
+        android:layout_height="160dip"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="false"
+        android:max="100"
+        android:progressDrawable="@drawable/progressbar" />
+
+    <TextView
+        android:id="@+id/pedo_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/progressBar1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:text="@string/pedo_bar"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

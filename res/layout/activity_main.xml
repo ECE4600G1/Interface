@@ -91,7 +91,7 @@
             <LinearLayout
                 android:id="@+id/posturePie"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="125dp"
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
@@ -149,22 +149,23 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/pedo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:text="@string/pedo" 
-                    android:background="@drawable/buttonshape"
-           			 android:textColor="#FFFFFF"/>
-
-                <Button
                     android:id="@+id/loca"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".5"
+                    android:layout_weight=".6"
                     android:text="@string/loca"
                     android:background="@drawable/buttonshape"
             		android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/pedo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".4"
+                    android:background="@drawable/buttonshape"
+                    android:text="@string/pedo"
+                    android:textColor="#FFFFFF" />
+
             </TableRow>
 
             <TableRow
@@ -176,7 +177,7 @@
                     android:id="@+id/post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".5"
+                    android:layout_weight=".6"
                     android:text="@string/post"
                     android:background="@drawable/buttonshape"
             		android:textColor="#FFFFFF" />
@@ -185,7 +186,7 @@
                     android:id="@+id/heart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".5"
+                    android:layout_weight=".4"
                     android:text="@string/heart" 
                     android:background="@drawable/buttonshape"
             		android:textColor="#FFFFFF"/>

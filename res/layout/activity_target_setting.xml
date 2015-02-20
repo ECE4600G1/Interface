@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ece4600.mainapp.TargetSetting" >
+
+    <LinearLayout
+        android:id="@+id/pedo_size"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pedo_target"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pedo_target"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/pedo_targetnum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/pedo_targets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/pedo_size"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/pedo_sizenum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/pedo_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:text="@string/pedo_save" 
+                android:background="@drawable/buttonshape"
+            	android:textColor="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/pedo_can"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:text="@string/pedo_can"
+                android:background="@drawable/buttonshape"
+            	android:textColor="#FFFFFF" />
+
+        </TableRow>
+
+    </LinearLayout>
+
+</RelativeLayout>

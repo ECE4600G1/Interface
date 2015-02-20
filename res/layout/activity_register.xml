@@ -124,7 +124,6 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text|phone" />
-
     </TableRow>
 
     <TableRow
@@ -144,8 +143,8 @@
         <RadioGroup
             android:id="@+id/sex"
             android:layout_width="0dp"
-            android:layout_weight="0.85"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_weight="0.85" >
 
             <RadioButton
                 android:id="@+id/Female1"
@@ -168,9 +167,7 @@
                 android:layout_height="wrap_content"
                 android:text="Other"
                 android:textSize="14sp" />
-
         </RadioGroup>
-
     </TableRow>
 
     <TableRow
@@ -190,21 +187,20 @@
         <Spinner
             android:id="@+id/month"
             android:layout_width="0dp"
-            android:layout_weight="0.25"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25" />
 
         <Spinner
             android:id="@+id/day"
             android:layout_width="0dp"
-            android:layout_weight="0.25"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25" />
 
         <Spinner
             android:id="@+id/year"
             android:layout_width="0dp"
-            android:layout_weight="0.25"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25" />
     </TableRow>
 
     <TableRow
@@ -224,12 +220,10 @@
         <EditText
             android:id="@+id/weight"
             android:layout_width="0dp"
-            android:layout_weight="0.70"
-            
             android:layout_height="wrap_content"
+            android:layout_weight="0.70"
             android:ems="10"
             android:inputType="number" />
-
     </TableRow>
 
     <TableRow
@@ -237,29 +231,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
+        <Button
+            android:id="@+id/userRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:gravity="center"
+            android:layout_weight=".5"            
+            android:text="Register"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/userCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:text="Cancel"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
     </TableRow>
-
-    <Button
-        android:id="@+id/userRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:text="Register" 
-        android:background="@drawable/buttonshape"
-            android:textColor="#FFFFFF"/>
-
-    <TableRow
-        android:id="@+id/tableRow8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <Button
-        android:id="@+id/userCancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Cancel" 
-        android:background="@drawable/buttonshape"
-            android:textColor="#FFFFFF"/>
 
 </TableLayout>
