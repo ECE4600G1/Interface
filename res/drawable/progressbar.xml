@@ -7,7 +7,7 @@
             android:shape="ring"
             android:thicknessRatio="7.0"
             android:useLevel="false" >
-            <solid android:color="#38AEFF" />
+            <solid android:color="#d3d3d3" />
 
             <stroke android:color="#adadad" />
         </shape>
@@ -23,7 +23,7 @@
                 android:shape="ring"
                 android:thicknessRatio="7.0"
                 android:useLevel="true" >
-                <solid android:color="#d3d3d3" />
+                <solid android:color="#38AEFF" />
             </shape>
         </rotate>
     </item>
