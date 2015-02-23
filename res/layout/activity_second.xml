@@ -2,66 +2,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical" >
 
-
-    <LinearLayout
-        android:id="@+id/layout_isroom"
+    <TableRow
+        android:id="@+id/tableRow1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/but_isroom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Room" />
+             android:layout_weight=".33"
+            android:text="Room" 
+              android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btn_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Map" />
+            android:layout_weight=".33"
+            android:text="Map" 
+              android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Return" />
+            android:layout_weight=".33"
+            android:text="Return" 
+              android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF" />
+    </TableRow>
 
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/layout_btns"
+    <TableRow
+        android:id="@+id/tableRow2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/read_xml"
-            android:layout_width="wrap_content"
+           android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Load Data" />
+            android:layout_weight=".25"
+            android:text="Load" 
+              android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/check_data"
-            android:layout_width="wrap_content"
+           android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight=".25"
             android:text="Start"
-            android:visibility="visible" />
+            android:visibility="visible"
+              android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"  />
 
         <ToggleButton
             android:id="@+id/locationSave"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Record" />
+            android:layout_weight=".25"
+            android:background="@drawable/mytoggle"
+            android:textColor="#FFFFFF"
+            android:textOff="Record"
+            android:textOn="Record"
+            />
 
         <Button
             android:id="@+id/pause"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pause" />
-    </LinearLayout>
+            android:layout_weight=".25"
+            android:text="Pause"
+              android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"  />
+    </TableRow>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -72,7 +91,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
 
             <TextView
                 android:id="@+id/tv_jisuan_result"
@@ -99,9 +117,3 @@
     </ScrollView>
 
 </LinearLayout>
-        
-         
- 
-
-       
-   
