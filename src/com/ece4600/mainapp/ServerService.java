@@ -106,7 +106,7 @@ public class ServerService extends Service {
 //        	     String strDate = sdf.format(c.getTime());//
         	     
         	     String username = postureSettings.getString("username","error"); // 
-        	     String posture = postureSettings.getString("posture","error"); // 
+ //       	     String posture = postureSettings.getString("posture","error"); // 
         	     
         	     //loop start
 

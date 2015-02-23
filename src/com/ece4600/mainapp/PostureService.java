@@ -2,6 +2,7 @@ package com.ece4600.mainapp;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -989,7 +990,7 @@ public class PostureService extends Service{
 		duration = nowMsTime - pastMsTime;
 		pastMsTime = nowMsTime;
 		
-		String postureStr, temp;
+		String postureStr, temp,temp_database = "";
 		short postureNum =0;
 		postureStr = "";
 		
@@ -1017,10 +1018,19 @@ public class PostureService extends Service{
 			postureStr ="Laying down (right side)";
 			postureNum = 6;
 		}
-
-		
-		temp = convertTimeStr(duration) + " - " + postureStr;
-		
+	     
+		////database related///starts here------
+//		Calendar c = Calendar.getInstance(); // testing only will be removed later. 
+//	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
+//	     String strDate = sdf.format(c.getTime());//
+//       //hardcoding posture for testing purpose
+//         editor.putString("posture","stand2,"+strDate+"/sit3,"+strDate+"/test4,"+strDate);
+//		
+//		
+//		temp_database = postureStr;
+			////database related///ends here -----
+				
+	    temp = convertTimeStr(duration) + " - " + postureStr;
 		fileOps.write(fileName, duration, postureStr, postureNum, STOP, firstTime);
 		
 		editor.putString("passPosture5", postureSettings.getString("passPosture4", ""));
