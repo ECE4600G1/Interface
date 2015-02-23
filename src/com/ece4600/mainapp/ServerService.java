@@ -61,7 +61,8 @@ public class ServerService extends Service {
 	     String strDate = sdf.format(c.getTime());//
         //hardcoding posture for testing purpose
         editor.putString("posture","stand2,"+strDate+"/sit3,"+strDate+"/test4,"+strDate);
-        editor.putInt("counter", 3);
+	 //    editor.putString("posture","");
+    //    editor.putInt("counter", 3);
      // editor.
         editor.commit();
 
@@ -78,6 +79,11 @@ public class ServerService extends Service {
             	String temp_pair; 
                 String[] ss=temp.split("/");
                 int totalLength = ss.length;
+                //if the total length is 0, should just return to main func. 
+                if (totalLength ==  0)
+                	return;
+                
+                //
                 for(int i=0;i<ss.length;i++)
                 {
                     System.out.println(ss[i]);
