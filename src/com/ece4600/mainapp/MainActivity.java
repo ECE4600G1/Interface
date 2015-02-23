@@ -167,6 +167,7 @@ public class MainActivity extends Activity {
     	case R.id.mainmenu_logout:
     		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
     		startActivity(new Intent(this, Login.class));
+    		stopService(new Intent(this, ServerService.class));
     		finish();
     		break;
     	case R.id.editProfile:

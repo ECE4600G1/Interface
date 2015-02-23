@@ -208,6 +208,7 @@ public class ServerService extends Service {
     @Override
     public void onDestroy() {
         Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
-        
+        scheduler.shutdown();
+        super.onDestroy();
     }
 }

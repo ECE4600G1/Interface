@@ -222,7 +222,8 @@ class AttemptLogin extends AsyncTask<String, String, String> {
          }else{
         	
          	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
-         	Toast.makeText(getApplicationContext(), json.getString(TAG_MESSAGE),Toast.LENGTH_LONG).show();
+         	//Toast.makeText(getApplicationContext(), json.getString(TAG_MESSAGE),Toast.LENGTH_LONG).show(); <- causes error
+         	
          	return json.getString(TAG_MESSAGE);
          	
          }
