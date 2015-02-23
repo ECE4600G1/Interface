@@ -28,12 +28,12 @@ public class ServerService extends Service {
 	// get values from shared preference
 	public SharedPreferences postureSettings;
 	public SharedPreferences.Editor editor;
-	public SharedPreferences settings;
+//	public SharedPreferences settings;
 	
 	public void setUpPreferences(){
-    	settings = getSharedPreferences("userPrefs", MODE_PRIVATE);
-    	editor = settings.edit();
+    	
     	postureSettings = getSharedPreferences("posturePrefs", MODE_PRIVATE );
+    	editor = postureSettings.edit();
     }
 	
 	public void restorePreferences(){
@@ -55,7 +55,7 @@ public class ServerService extends Service {
     public void onCreate() {
         Toast.makeText(this, "The new Service was Created", Toast.LENGTH_LONG).show();
       //  new Thread(new Task()).start();
-        PeriodicUpdate(5);
+        PeriodicUpdate(20);
     }
 	
     public void PeriodicUpdate(long period) {
@@ -64,7 +64,7 @@ public class ServerService extends Service {
                 Log.d("update", "New postureupdate");
                 int success;
         	 	final String LOGIN_URL = "http://wellnode.ca/webservice/posture.php";
-
+        	 	setUpPreferences();
         	    final String TAG_SUCCESS = "success";
         		
         	    JSONParser jsonParser = new JSONParser();
@@ -73,14 +73,14 @@ public class ServerService extends Service {
         	     Calendar c = Calendar.getInstance();
         	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         	     String strDate = sdf.format(c.getTime());
-
+        	     String username = postureSettings.getString("username","error");
         	    
         	     try {
         	         // Building Parameters
         	         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        	         params.add(new BasicNameValuePair("username", "yang")); // pass shared preference here 
+        	         params.add(new BasicNameValuePair("username", username)); // pass shared preference here 
         	         params.add(new BasicNameValuePair("timetag", strDate)); // however we need another service that logs everything for 5 seconds or more then save it in array
-        	         params.add(new BasicNameValuePair("posture", "stand")); // then parse it and send it via jsonparser. // 
+        	         params.add(new BasicNameValuePair("posture", "bend")); // then parse it and send it via jsonparser. // 
 
 
         	         Log.d("upload", "starting");
@@ -131,6 +131,7 @@ public class ServerService extends Service {
 			// TODO Auto-generated method stub
 			 // Check for success tag
 	     int success;
+	     String username;
 	 	final String LOGIN_URL = "http://wellnode.ca/webservice/posture.php";
 
 	    final String TAG_SUCCESS = "success";
@@ -141,16 +142,16 @@ public class ServerService extends Service {
 	     Calendar c = Calendar.getInstance();
 	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	     String strDate = sdf.format(c.getTime());
-
+	     username = postureSettings.getString("username","error");
 	    
 	     try {
 	         // Building Parameters
 	    	 
 	    	 //transmission of data starts here///
 	         List<NameValuePair> params = new ArrayList<NameValuePair>();
-	         params.add(new BasicNameValuePair("username", "yang"));
+	         params.add(new BasicNameValuePair("username", username));
 	         params.add(new BasicNameValuePair("timetag", strDate));
-	         params.add(new BasicNameValuePair("posture", "stand"));
+	         params.add(new BasicNameValuePair("posture", "bend"));
 
 
 	         Log.d("upload", "starting");
