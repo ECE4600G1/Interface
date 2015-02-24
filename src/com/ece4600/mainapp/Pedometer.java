@@ -142,8 +142,8 @@ public class Pedometer extends Activity{
 		switch (v.getId()) {
 		case R.id.pedo_start:
 			onResume();
-			timestart = System.currentTimeMillis();
-			timeSecondsstart = TimeUnit.MILLISECONDS.toSeconds(timestart);
+			//timestart = System.currentTimeMillis();
+			//timeSecondsstart = TimeUnit.MILLISECONDS.toSeconds(timestart);
 			//countdowndisplay();
 			stepthres = stepnum;
 			speednum = 0;
@@ -229,6 +229,11 @@ public class Pedometer extends Activity{
 		// as you specify a parent activity in AndroidManifest.xml.
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
+		case R.id.action_settings:
+			PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, TargetSetting.class));
+    		finish();
+    		break;
 		case R.id.pedomenu_heart:
 			startActivity(new Intent(this, Heartrate.class));
 			finish();
@@ -241,11 +246,6 @@ public class Pedometer extends Activity{
 			startActivity(new Intent(this, Posture.class));
 			finish();
 			break;
-		case R.id.action_settings:
-			PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
-    		startActivity(new Intent(this, TargetSetting.class));
-    		finish();
-    		break;
 		}
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
@@ -275,30 +275,30 @@ public class Pedometer extends Activity{
 		        
 		        	stepnum = intent.getIntExtra("STEP", stepnum);
 		        	stepdetect = stepnum - stepthres;
-		        	timestop = System.currentTimeMillis();
-					timeSecondsstop = TimeUnit.MILLISECONDS.toSeconds(timestop);
-					timedetect = timeSecondsstop - timeSecondsstart;
-					if (timedetect != 0){
-						speednum = stepdetect*60/ timedetect;
-						Log.i("Speed", "speed"+ speednum + "step"+ stepdetect + "time" + timedetect);
-					}
-		        	
+//		        	timestop = System.currentTimeMillis();
+//					timeSecondsstop = TimeUnit.MILLISECONDS.toSeconds(timestop);
+//					timedetect = timeSecondsstop - timeSecondsstart;
+//					if (timedetect != 0){
+//						speednum = stepdetect*60/ timedetect;
+//					}
+//		        	
 		        	float CurrentX  = intent.getFloatExtra("CurrentX", 0.0f);
 		        	float CurrentY  = intent.getFloatExtra("CurrentY", 0.0f);
 		        	float CurrentZ  = intent.getFloatExtra("CurrentZ", 0.0f);
 		        	
 		        	if (fftflag == true){
-			        	freq = freqindex*fs/N;		        	
-			        	stepprenum = freq*N/fs;
-			        	steppretotal = steppretotal + stepprenum;
-			        	steppreav = (steppretotal+stepdetect)/2;
+			        	freq = freqindex*fs/N;
+			        	steppreav = freqindex*fs*sizenum*2.237/(N*2);
+			        	//stepprenum = freq*N/fs;
+			        	//steppretotal = steppretotal + stepprenum;
+			        	//steppreav = (steppretotal+stepdetect)/2;
 			        	fftflag = false;
 						Log.i("FFFFF", "Stepone"+ stepprenum + "steptotal"+ steppretotal + "Freq" + freq + "Ave" + steppreav);
 		        	}
 		        	
 		        	if (startflag == true){
 		        	step.setText(Integer.toString(stepdetect) + "steps");
-		        	speed.setText(Double.toString(steppreav) + " steps/min");
+		        	speed.setText(Double.toString(steppreav) + " Miles/hour");
 					barnum = stepdetect*100/targetnum;
 				    Log.i("Bar", "Bar"+ barnum + "Step"+ stepdetect);
 				    bar.setText(Integer.toString(barnum) + "%");
@@ -359,7 +359,7 @@ public class Pedometer extends Activity{
 				double fftt = ((Math.pow(fft_x, 2) + Math.pow(fft_y, 2) + Math.pow(fft_z, 2)))/(fs*N);
 				//double fftt = -Math.log10((1/(fs*N)) * (Math.pow(fft_x, 2) + Math.pow(fft_y, 2) + Math.pow(fft_z, 2)));
 				Log.i("fftv", "Value " + fftt + "X" + fft_x + "Y" + fft_y + "Z" + fft_z);
-				if (fftt > peak && k > 1 && fftt > 0.1) {
+				if (fftt > peak && k > 0 && fftt > 0.1) {
 					peak = fftt;
 					index = k;
 					Log.i("fftindex", "K " + k);

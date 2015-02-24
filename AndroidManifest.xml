@@ -28,6 +28,8 @@
         </service>
         <service android:name=".PedometerService" >
         </service>
+        <service android:name=".ServerService" >
+        </service>
         <service android:name=".btMateService" >
         </service>
         <service android:name=".ECGdataSaveService" >

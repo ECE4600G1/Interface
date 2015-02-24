@@ -2,7 +2,6 @@ package com.ece4600.mainapp;
 
 import org.achartengine.GraphicalView;
 
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -81,6 +80,9 @@ public class MainActivity extends Activity {
   	  	setUpPreferences();
   	  	restorePreferences();
   	  	setUpPostureListener();
+  	  	
+  	  	//starting Database upload here
+  	  	startService(new Intent(this, ServerService.class));
         
     }
 
@@ -172,6 +174,7 @@ public class MainActivity extends Activity {
     	case R.id.mainmenu_logout:
     		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
     		startActivity(new Intent(this, Login.class));
+    		stopService(new Intent(this, ServerService.class));
     		finish();
     		break;
     	case R.id.editProfile:

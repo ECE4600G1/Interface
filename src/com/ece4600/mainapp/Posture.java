@@ -43,7 +43,7 @@ public class Posture extends Activity {
 	private Time now = new Time();
 	public SharedPreferences postureSettings;
 	public SharedPreferences.Editor editor;
-	public OnSharedPreferenceChangeListener settingsListen;
+	public OnSharedPreferenceChangeListener settingsListen; ///
 	public String fileName;
 	private PostureFileOperations fileOps = new PostureFileOperations();
 
@@ -130,6 +130,7 @@ public class Posture extends Activity {
 			       posture3.setText("3. " + postureSettings.getString("passPosture3", "3."));
 			       posture4.setText("4. " + postureSettings.getString("passPosture4", "4."));
 			       posture5.setText("5. " + postureSettings.getString("passPosture5", "5."));
+			       
 		      }
 		};
 		

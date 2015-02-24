@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.ece4600.mainapp.R;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -34,8 +35,8 @@ public class Login extends Activity implements OnClickListener{
 	Button login;
 	Button register;
 	
-	public SharedPreferences settings;
-	public SharedPreferences.Editor editor;
+	public SharedPreferences settings, postureSettings;
+	public SharedPreferences.Editor editor, postureeditor;
 	
 	//database related constants
 	
@@ -82,6 +83,9 @@ public class Login extends Activity implements OnClickListener{
 	public void setUpPreferences(){
     	settings = getSharedPreferences("userPrefs", MODE_PRIVATE);
     	editor = settings.edit();
+    	
+    	postureSettings = getSharedPreferences("posturePrefs", MODE_PRIVATE );
+    	postureeditor = postureSettings.edit();
     }
 
 @Override
@@ -203,15 +207,23 @@ class AttemptLogin extends AsyncTask<String, String, String> {
        	    editor.putString("weight", weight_database);
        	    editor.putString("sex", gender_database);
        	    editor.putString("DOB", dob_database);
-       	    
         	editor.commit();
+        	postureeditor.putString("username", username);
+        	postureeditor.commit();
          	finish();
-				startActivity(i);
+         	
+         	startActivity(i);
+				// start server logging here?
+				
+				
+				//
+				
          	return "Welcome " + json.getString(TAG_FIRSTNAME);
          }else{
         	
          	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
-         	Toast.makeText(getApplicationContext(), json.getString(TAG_MESSAGE),Toast.LENGTH_LONG).show();
+         	//Toast.makeText(getApplicationContext(), json.getString(TAG_MESSAGE),Toast.LENGTH_LONG).show(); <- causes error
+         	
          	return json.getString(TAG_MESSAGE);
          	
          }
