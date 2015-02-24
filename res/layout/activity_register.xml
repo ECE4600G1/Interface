@@ -10,8 +10,9 @@
 
         <TextView
             android:id="@+id/TextView02"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.8"
             android:text="User Name:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -20,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_weight="0.2"
             android:inputType="textPersonName" />
     </TableRow>
 
@@ -30,9 +32,10 @@
 
         <TextView
             android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Password:"
+            android:layout_weight="0.8"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -40,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_weight="0.2"
             android:inputType="textPassword" >
 
             <requestFocus />
@@ -53,9 +57,10 @@
 
         <TextView
             android:id="@+id/pastPosture4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="First name:"
+            android:layout_weight="0.8"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -63,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_weight="0.2"
             android:inputType="textPersonName" />
     </TableRow>
 
@@ -73,15 +79,17 @@
 
         <TextView
             android:id="@+id/posture5"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Last name:"
+            android:layout_weight="0.8"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/patientLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.2"
             android:ems="10" />
     </TableRow>
 
@@ -92,9 +100,10 @@
 
         <TextView
             android:id="@+id/TextView03"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Address:"
+            android:layout_weight="0.8"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -102,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_weight="0.2"
             android:inputType="text" />
     </TableRow>
 
@@ -115,6 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Phone #:"
+            android:layout_weight="0.8"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="14sp" />
 
@@ -123,6 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_weight="0.2"
             android:inputType="text|phone" />
     </TableRow>
 
@@ -210,19 +222,19 @@
 
         <TextView
             android:id="@+id/pastPosture3"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:text="Weight:"
+            android:layout_weight="0.8"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="14sp" />
 
         <EditText
             android:id="@+id/weight"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.70"
             android:ems="10"
+            android:layout_weight="0.2"
             android:inputType="number" />
     </TableRow>
 

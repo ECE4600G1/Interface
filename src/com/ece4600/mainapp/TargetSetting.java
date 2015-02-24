@@ -1,6 +1,8 @@
 package com.ece4600.mainapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ public class TargetSetting extends Activity {
 	public SharedPreferences.Editor editort;
 	private Button save, cancel;
 	private EditText target, size;
+	private boolean textflag =  false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,11 @@ public class TargetSetting extends Activity {
 				editort.putString("target", target.getText().toString());
 				editort.putString("size", size.getText().toString());				
 				editort.commit();
-				
+				emptyText();
+				if (textflag == true){
 				startActivity(new Intent(TargetSetting.this, Pedometer.class));
 				finish();
-				
+				}			
 			}
 		});	
 		
@@ -55,6 +59,27 @@ public class TargetSetting extends Activity {
 		});	
 	}
 
+	public void emptyText(){
+		if (size.getText().toString().equals("") || target.getText().toString().equals("")){
+			AlertDialog.Builder alertDialogHint = new AlertDialog.Builder(this);
+			alertDialogHint.setMessage("Inputs are EMPTY! Please enter again!");
+			alertDialogHint.setPositiveButton("OK",
+			new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent i = new Intent(TargetSetting.this,TargetSetting.class);
+					startActivity(i);
+					finish();
+				}
+			});
+			AlertDialog alertDialog = alertDialogHint.create();
+			alertDialog.show();
+		}else{
+			textflag = true;
+		}
+	}
+	
 	private void setUpPreferences() {
 		// TODO Auto-generated method stub
     	settingst = getSharedPreferences("pedoPrefs", MODE_PRIVATE);
