@@ -3,6 +3,8 @@ package com.ece4600.mainapp;
 import static java.util.UUID.fromString;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -691,6 +693,13 @@ private void readDevice2(){
      	now.setToNow();
      	date = now.format("%m-%d-%Y");
      	
+        Calendar c = new GregorianCalendar();
+	    int day =c.get(Calendar.DAY_OF_MONTH);
+	    
+		if (day != postureSettings.getInt("currentDay", 0)){
+			numFile = 0;
+		}
+     	
      	if (numFile != 0){
      		
      		
@@ -755,7 +764,7 @@ private void readDevice2(){
 			i.putExtra("STOP", true);
 			startService(i);
 			
-			/*postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
+			postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
 	    	postureEditor = postureSettings.edit();
 	    	userName = postureSettings.getString("name", "Mike");
 	    	
@@ -774,9 +783,12 @@ private void readDevice2(){
         	numFile++;
         	postureEditor.putInt("numFile", numFile);
 			
-			Log.e("BLESERVICE", "broastcase");*/
+			Log.e("BLESERVICE", "broastcase");
 			
-			stopSelf();
+			postureEditor.putBoolean("firstTime", true);
+			postureEditor.commit();
+			
+			//stopSelf();
 
 		};
 	};

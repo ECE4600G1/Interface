@@ -78,7 +78,7 @@ public class PostureService extends Service{
 		
 		setUpPreferences();
 		
-		firstTime = true;
+		//firstTime = true;
 		pastMsTime = System.currentTimeMillis();
 		
 		super.onCreate();
@@ -101,12 +101,16 @@ public class PostureService extends Service{
 		
 		
 	    fileName = postureSettings.getString("fileName", "");
+    	firstTime = postureSettings.getBoolean("firstTime", false);
 
 		
 		if (firstTime){
 		fileOps.write(fileName, duration, "",(short) 0, false, firstTime);
-		firstTime = false;
-		}
+		//firstTime = false;
+		
+		editor.putBoolean("firstTime", false);
+		editor.commit();
+		} else{
 		
 
 		
@@ -137,6 +141,7 @@ public class PostureService extends Service{
 				updatePieChart();
 			}
 			
+		}
 		}
 		return super.onStartCommand(intent,flags, startId);
 	}//end of onStartCommand(...)
@@ -920,6 +925,7 @@ public class PostureService extends Service{
 	        	editor.commit();
 	    		//TODO start new file to save
 	        	editor.putBoolean("firstTime", true);
+	        	editor.commit();
 	    	}
 	    	
 	    	firstTime = postureSettings.getBoolean("firstTime", false);

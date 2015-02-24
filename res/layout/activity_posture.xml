@@ -173,7 +173,7 @@
             	android:textColor="#FFFFFF"/>
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/timeLineReturn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"

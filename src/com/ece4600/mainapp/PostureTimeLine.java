@@ -17,13 +17,17 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class PostureTimeLine extends Activity {
 	private SharedPreferences postureSettings;
@@ -40,8 +44,11 @@ public class PostureTimeLine extends Activity {
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 	
-	private int numFile;
+	private int numFile, indexFile;
 	private String userName;
+	
+	Button increaseBut, decreaseBut, returnBut;
+	TextView numFileStr;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -50,9 +57,25 @@ public class PostureTimeLine extends Activity {
 	    setContentView(R.layout.activity_posturetimeline);
 	    setUpGraphs();
 	    setUpPreferences();
-	    readFile();
 	    context = getBaseContext();
+	    
+	    indexFile = 0;
+	    
+	    increaseBut = (Button)findViewById(R.id.increase);
+	    decreaseBut  = (Button)findViewById(R.id.decrease);
+	    returnBut = (Button)findViewById(R.id.timeLineReturn);
+	    
+	    numFileStr = (TextView)findViewById(R.id.numFile);
+	    
+	    
+	    filePath = PATH + "/" + fileName + ".csv";
+	    readFile();
+
 	    paintGraph();
+	    
+	    initButtons();
+	    
+	    
 	    // TODO Auto-generated method stub
 	}
 	
@@ -62,11 +85,13 @@ public class PostureTimeLine extends Activity {
 		int num, lines, n;
 		n = 0;
 		num = 0;
-		filePath = PATH + "/" + fileName + ".csv";
-		File file = new File(filePath);
-		
-		while(num < numFile){
-			if (file.exists()){
+		//filePath = PATH + "/" + fileName + ".csv";
+		//File file = new File(filePath);
+		//series.clear();
+		//mRenderer.removeAllRenderers();
+		//setUpGraphs();
+		//while(num < (numFile-1)){
+			//if (file.exists()){
 		BufferedReader br = null;
 		String line = "";
 		
@@ -126,13 +151,12 @@ public class PostureTimeLine extends Activity {
 				}
 			}
 		}
-			}
-		num++;
+			//}
+		//num++;
 		
-		filePath = PATH + "/" + fileName + "(" + num + ")" + ".csv";
-		file = new File(filePath);
+		//file = new File(filePath);
 		Log.e("timeline", filePath);
-		}
+		//}
 		mDataset.addSeries(series);
 		
 		
@@ -207,6 +231,98 @@ public class PostureTimeLine extends Activity {
 		
 	    fileName = userName + " Posture " + date;
 	    numFile = postureSettings.getInt("numFile", 1);
+	}
+	
+	
+	public void initButtons(){
+		increaseBut.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				
+				
+	    		indexFile++;
+	    		filePath = PATH + "/" + fileName + "(" + indexFile + ")" + ".csv";
+	    		File file = new File(filePath);
+	    		if ((file.exists()) & (indexFile < numFile)){
+	    			
+	    			seeNextPlot();
+	    		
+	    			readFile();
+	    			paintGraph();
+	    			updatefileNumStr();
+	    		}else{
+	    			indexFile--;
+	    		}
+			}
+		});	
+		
+		
+		decreaseBut.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+	    		indexFile--;
+	    		
+	    		if(indexFile == 0){
+	    			filePath = PATH + "/" + fileName + ".csv";
+	    			File file = new File(filePath);
+		    		if (file.exists()){
+		    			seeNextPlot();
+		    			readFile();
+		    			paintGraph();
+		    			updatefileNumStr();
+		    		}else{
+		    			indexFile--;
+		    		}
+	    		} else if (indexFile < 0){
+	    			indexFile++;
+	    		} else {
+	    			filePath = PATH + "/" + fileName + "(" + indexFile + ")" + ".csv";
+		    		File file = new File(filePath);
+		    		if (file.exists()){
+		    			seeNextPlot();
+		    			readFile();
+		    			paintGraph();
+		    			updatefileNumStr();
+		    		}else{
+		    			indexFile++;
+		    		}
+	    		}
+				
+			}
+		});	
+		
+		returnBut.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(PostureTimeLine.this, Posture.class));
+				finish();
+				
+			}
+		});	
+		
+		
+		
+	}
+	
+	
+	public void updatefileNumStr(){
+		
+		if (indexFile < 10){
+			numFileStr.setText("File index: 0" + String.valueOf(indexFile));
+		} else if (indexFile > 10){
+			numFileStr.setText("File index: " + String.valueOf(indexFile));
+		}
+		
+	}
+	
+	public void seeNextPlot(){
+		mDataset.removeSeries(series);
+		mRenderer.removeAllRenderers();
+		mRenderer.clearXTextLabels();	
+		series.clear();
+		setUpGraphs();
+		
 	}
 	
 	

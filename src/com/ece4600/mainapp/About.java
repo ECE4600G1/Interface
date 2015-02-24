@@ -16,10 +16,10 @@ public class About extends Activity {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         
-        TextView t2 = (TextView) findViewById(R.id.textView3);
+        TextView t2 = (TextView) findViewById(R.id.numFile);
         t2.setMovementMethod(LinkMovementMethod.getInstance());
 	
-	    Button returnButtton = (Button)findViewById(R.id.button1);
+	    Button returnButtton = (Button)findViewById(R.id.timeLineReturn);
 	    
 	    returnButtton.setOnClickListener(new View.OnClickListener() {
 			@Override
