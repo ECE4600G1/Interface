@@ -98,8 +98,12 @@ public class PostureService extends Service{
 		float yValue2 = intent.getFloatExtra("YVal2", 0.0f);
 		float zValue2 = intent.getFloatExtra("ZVal2", 0.0f);
 		
+		
+	    fileName = postureSettings.getString("fileName", "");
+
+		
 		if (firstTime){
-		fileOps.write(fileName, duration, "",(short) 0, STOP, firstTime);
+		fileOps.write(fileName, duration, "",(short) 0, false, firstTime);
 		firstTime = false;
 		}
 		
@@ -108,30 +112,29 @@ public class PostureService extends Service{
 		if (STOP){
 			updatePostureSummary();
 		} else {
-		double dummy = Math.sqrt(xValue1 * xValue1 +  yValue1 * yValue1 +  zValue1 * zValue1 );
+			double dummy = Math.sqrt(xValue1 * xValue1 +  yValue1 * yValue1 +  zValue1 * zValue1 );
 		
-		if ((dummy >0.5)&&(dummy < 1.60))  {
-			dataArrayFloat data = new dataArrayFloat(xValue1, yValue1, zValue1);
-			array_10_D1[i] = data;
-			dataArrayFloat data2 = new dataArrayFloat(xValue2, yValue2, zValue2);
-			array_10_D2[i] = data2;
-			Log.v("PostureService", "Recieved data");
-			i++;
-		}
+			if ((dummy >0.5)&&(dummy < 1.60))  {
+				dataArrayFloat data = new dataArrayFloat(xValue1, yValue1, zValue1);
+				array_10_D1[i] = data;
+				dataArrayFloat data2 = new dataArrayFloat(xValue2, yValue2, zValue2);
+				array_10_D2[i] = data2;
+				//Log.v("PostureService", "Recieved data");
+				i++;
+				}
 		
 		
-		if (i == totalAvgNum1) //i = 11 to get rid of null pointer exception
-		{
-			i = 0;
-
-			calculatePosture();
-		}
+			if (i == totalAvgNum1) //i = 11 to get rid of null pointer exception
+			{
+				i = 0;
+				calculatePosture();
+			}
 		
-		pieChartUpdate++;
-		if (pieChartUpdate == 10){
-			pieChartUpdate = 0;
-			updatePieChart();
-		}
+			pieChartUpdate++;
+			if (pieChartUpdate == 10){
+				pieChartUpdate = 0;
+				updatePieChart();
+			}
 			
 		}
 		return super.onStartCommand(intent,flags, startId);
@@ -145,7 +148,7 @@ public class PostureService extends Service{
 		
 		//To record last posture:
 		updatePostureSummary();
-		
+		Log.e("Posture service", "destroy");
 		super.onDestroy();
 	}// End of onDestroy
 	
@@ -178,26 +181,6 @@ public class PostureService extends Service{
 		avgX2 = avgX2 / divideAvg;
 		avgY2 = avgY2 / divideAvg;
 		avgZ2 = avgZ2 / divideAvg;
-		
-	
-		/*
-		Handler hAvg = new Handler(Looper.getMainLooper());
-		hAvg.post(new Runnable(){
-			@Override
-			public void run(){
-				Intent i = new Intent("POSTURE_EVENT");
-				
-				i.putExtra("avgX1", avgX1);
-				i.putExtra("avgY1", avgY1);
-				i.putExtra("avgZ1", avgZ1);
-				
-				i.putExtra("avgX2", avgX2);
-				i.putExtra("avgY2", avgY2);
-				i.putExtra("avgZ2", avgZ2);
-				
-				sendBroadcast(i);
-			}
-		});*/
 		
 		
 		float dumAvgZ1, dumAvgY1, dumAvgZ2, dumAvgY2;
@@ -301,19 +284,6 @@ public class PostureService extends Service{
 			i.putExtra("POSTURE", newPosture);
 			sendBroadcast(i);
 			
-			
-			
-			
-			// Toast message to show new posture
-			/*Handler h = new Handler(Looper.getMainLooper());
-			h.post(new Runnable(){
-				@Override
-				public void run(){
-					
-					Toast.makeText( PostureService.this, postureState, Toast.LENGTH_SHORT).show();
-					
-				}
-			});*/
 		}
 		else{
 		
@@ -940,14 +910,18 @@ public class PostureService extends Service{
 	         	now.setToNow();
 	         	date = now.format("%m-%d-%Y");
 	         	
-	        	fName = userName + " Posture " + date + ".csv";
+	        	fName = userName + " Posture " + date;
 	        	fileName = fName;
-	        	fileOps.writeHeader(fName,userName, date);
+	        	//fileOps.writeHeader(fName,userName, date);
 	        	
 	        	editor.putString("fileName", fileName);
+	        	//editor.putInt("numFile", 1);
 	        	editor.commit();
 	    		//TODO start new file to save
+	        	editor.putBoolean("firstTime", true);
 	    	}
+	    	
+	    	firstTime = postureSettings.getBoolean("firstTime", false);
     }
 	
 	public String convertTimeStr(long timeMs){

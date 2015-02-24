@@ -45,7 +45,8 @@ public class Posture extends Activity {
 	public SharedPreferences.Editor editor;
 	public OnSharedPreferenceChangeListener settingsListen;
 	public String fileName;
-	
+	private PostureFileOperations fileOps = new PostureFileOperations();
+
 	
 	private BluetoothAdapter myBluetoothAdapter;
 
@@ -142,7 +143,20 @@ public class Posture extends Activity {
 			@Override
 			public void onClick(View v) {
 	    		
+				Intent i = new Intent("BLE_EVENT");
+				 i.putExtra("command", 's');
+			     sendBroadcast(i);
+			     
+			     try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				startActivity(new Intent(Posture.this, PostureTimeLine.class));
+
+				
+	        	
 				finish();
 			}
 		});	

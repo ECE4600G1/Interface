@@ -24,6 +24,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -115,6 +116,8 @@ public class Heartrate extends Activity {
 		 setUpPreferences();
 		 
 		 recordButton.setChecked(settings.getBoolean("recordState", false));
+		 
+		
 		
 	}
 	
@@ -127,27 +130,41 @@ public class Heartrate extends Activity {
 	  Intent i = new Intent("BTMATE_EVENT");
 	  i.putExtra("command", 'p');
 	  sendBroadcast(i);
-		
-	  
-	  //Intent intent2 = new Intent(Heartrate.this, btMateService.class);
-	  //stopService(intent2);
+	
+	  Log.e("ECG", "on destroy");
 	  
 	 }
 	 
 	 
 	 @Override
 	 protected void onResume() {
+		/* Intent i = new Intent("BTMATE_EVENT");
+		i.putExtra("command", 'o');
+		sendBroadcast(i);
+		Log.e("ECG", "on resume");*/
 		super.onResume();
 	}
 		
 	@Override
 	protected void onPause() {
+		/*Intent i2 = new Intent("BTMATE_EVENT");
+		i2.putExtra("command", 'n');
+		sendBroadcast(i2);
+		try {
+			Thread.sleep(250);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		
 		Intent i = new Intent("BTMATE_EVENT");
 		i.putExtra("command", 'p');
 		sendBroadcast(i);
 		
 		 //Intent intent2 = new Intent(Heartrate.this, btMateService.class);
 		  //stopService(intent2);
+		Log.e("ECG", "on pause");
 		super.onPause();
 	}
 
@@ -198,11 +215,12 @@ public class Heartrate extends Activity {
 		startButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//startDAQ ();
+				
 				 Intent i = new Intent("BTMATE_EVENT");
 				 i.putExtra("command", 's');
 			     sendBroadcast(i);
 			     chartThread.startPlot();
+			     //chartThread.run();
 			     
 			}     
 	    });
@@ -210,7 +228,7 @@ public class Heartrate extends Activity {
 		stopButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// stopDAQ();
+				
 			     Intent i = new Intent("BTMATE_EVENT");
 				 i.putExtra("command", 'p'); // stop recieving data
 			     sendBroadcast(i);
@@ -242,8 +260,9 @@ public class Heartrate extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				chartThread.cancel();
 				startActivity(new Intent(Heartrate.this, MainActivity.class));
-				//finish();
+				finish();
 				
 			}
 		});
@@ -253,37 +272,6 @@ public class Heartrate extends Activity {
 	
 	
 	
-	public void stopDAQ (){
-		start = false;
-		line.stop();
-		time =0;
-		firstTime=true;
-			
-	}
-	
-	public void startDAQ (){
-		if (firstTime){
-		//line.initialize();
-		// initialize accelerometers
-	
-		
-		firstTime=false;
-		time = 0;
-		
-
-		}
-		index =0;
-		start = true;
-		
-	}
-
-	public void pauseDAQ(){
-		start = false;
-		line.stop();
-		time =0;
-		firstTime=true;
-		
-	}
 
 
 	class ChartHandler extends Handler{
@@ -329,7 +317,7 @@ public class Heartrate extends Activity {
 		
 		@Override
 		public void run(){
-			
+			while (true){
 			while(continuePlot){
 				
 				double yVal = 0;
@@ -340,8 +328,11 @@ public class Heartrate extends Activity {
 					yVal = (double) queue.poll();
 					currentX = currentX + samplingRate;
 					Message msg = Message.obtain();
+					
+					if (msg != null){
 					msg.arg1 = (int)Math.round(yVal*1000);
 					handler.sendMessage(msg);
+					}
 					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -357,6 +348,7 @@ public class Heartrate extends Activity {
 				handler.sendMessage(msg);	
 				}*/
 			}	
+			}
 		}
 		
 		public void cancel(){

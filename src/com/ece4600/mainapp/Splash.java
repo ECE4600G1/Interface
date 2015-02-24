@@ -29,7 +29,7 @@ public class Splash extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Toast.makeText(MainActivity.this, "Pedometer", Toast.LENGTH_LONG).show();
-				startActivity(new Intent(Splash.this, Login.class)); // Login.java or Mainactivity.java
+				startActivity(new Intent(Splash.this, MainActivity.class)); // Login.java or Mainactivity.java
 				finish();
 			}
 //			public void onClick(View v) {

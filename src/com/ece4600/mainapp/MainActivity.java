@@ -89,6 +89,13 @@ public class MainActivity extends Activity {
 	  super.onDestroy();
 	  //un-register BroadcastReceiver
 	  postureSettings.unregisterOnSharedPreferenceChangeListener(posturesListen);
+	  
+	  
+	  stopService( new Intent(MainActivity.this,  btMateService.class));
+	  stopService( new Intent(MainActivity.this,  bleService.class));
+
+		
+
 	 }
 
 	
@@ -106,7 +113,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				//Toast.makeText(MainActivity.this, "Heart rate", Toast.LENGTH_LONG).show();
 				startActivity(new Intent(MainActivity.this, Heartrate.class));
-				finish();
+				//finish();
 			}
 		});	
     }
@@ -118,7 +125,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				//Toast.makeText(MainActivity.this, "Pedometer", Toast.LENGTH_LONG).show();
 				startActivity(new Intent(MainActivity.this, Pedometer.class));
-				finish();
+				//finish();
 			}
 		});	
     }
@@ -130,7 +137,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				//Toast.makeText(MainActivity.this, "Location", Toast.LENGTH_LONG).show();
 				startActivity(new Intent(MainActivity.this, Location.class));
-				finish();
+				//finish();
 			}
 		});	
     }
@@ -142,7 +149,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				//Toast.makeText(MainActivity.this, "Posture", Toast.LENGTH_LONG).show();
 				startActivity(new Intent(MainActivity.this, Posture.class));
-				finish();
+				//finish();
 			}
 		});	
     }

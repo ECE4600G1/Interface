@@ -301,16 +301,6 @@ public class btMateService extends Service {
 	                	else{
 	                		ptr++;
 	                	}
-	            	}else{
-	            		if (waitCount >= 50000){//This may mean that the bluetooth Mate timed out
-	            			status = false;
-	            			cancel();
-	            	
-
-	            		}else{
-	            			waitCount++;
-	            		}
-	            		
 	            	}
 	                
 	                	if (b == '\n'){
@@ -318,7 +308,12 @@ public class btMateService extends Service {
 	                	}
 	            	}
 	            	
-	                
+	            	if (waitCount >= 50000){//This may mean that the bluetooth Mate timed out
+            			status = false;
+            			cancel();
+            		}else{
+            			waitCount++;
+            		}
 	            } catch (IOException e) {
 	                break;
 	            }
@@ -351,6 +346,12 @@ public class btMateService extends Service {
 	    public void writeBytes(byte[] bytes) {
 	        try {
 	            mmOutStream.write(bytes);
+	            try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	        }
 	        catch (IOException e) { }
 	    }
@@ -420,25 +421,10 @@ public class btMateService extends Service {
 			    // stop receiving data device
 				mateRead.stopStream();
 				Log.i(TAG, "Stopped stream");
-				if(mateRead.saveData){
-						mateRead.saveData = false;
-				
-						settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
-						editor = settings.edit();
-		    			editor.putBoolean("recordState",false);
-		    			editor.commit();
-		    	
-		    			settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
-		    			editor = settings.edit();
-				
-						stopService(i);
-						bluetoothQueueForSaving.clear();
-						Log.i(TAG, "Stopped recording");
-					}
 				}
 			}
 			else if(action == 'r'){
-				if ( (mateConnected == connectState.CONNECTED) & (mateRead.mateState == deviceState.READ)){
+				if ( (mateConnected == connectState.CONNECTED) & (mateRead.mateState == deviceState.READ)&(mateRead.saveData == false)){
 					mateRead.saveData = true;
 					
 			    	settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
@@ -453,7 +439,7 @@ public class btMateService extends Service {
 				}
 			}
 			else if(action == 'n'){
-				if ( (mateConnected == connectState.CONNECTED) & (mateRead.mateState == deviceState.READ)){
+				if ( (mateConnected == connectState.CONNECTED) & (mateRead.mateState == deviceState.READ) &(mateRead.saveData == true)){
 					mateRead.saveData = false;
 					
 					settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
@@ -469,8 +455,24 @@ public class btMateService extends Service {
 					Log.i(TAG, "Stopped recording");
 				}
 			}else if(action == 'i'){
-					activityState = false;
-					bluetoothMateQueueForUI.clear();
+					
+					//activityState = false;
+					//bluetoothMateQueueForUI.clear();
+					
+					if (mateRead.saveData == true){
+						mateRead.saveData = false;
+						settings = getSharedPreferences("ECGPrefs", MODE_PRIVATE);
+				    	editor = settings.edit();
+				    	editor.putBoolean("recordState",false);
+				    	editor.commit();
+				    	
+				    	settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
+				    	editor = settings.edit();
+				    	Log.e("ECG", "stop recording");
+				    	
+				    	//bluetoothQueueForSaving.clear();
+					}
+					mateRead.stopStream();
 			}
 			else if(action == 'o'){
 					activityState = true;

@@ -6,6 +6,9 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import com.ece4600.mainapp.btMateService.connectState;
+import com.ece4600.mainapp.btMateService.deviceState;
+
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -17,8 +20,10 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.Handler;
@@ -130,6 +135,9 @@ public class bleService extends Service{
 		
 		setUpPreferences();
 		
+		IntentFilter intentFilter = new IntentFilter("BLE_EVENT");
+	    registerReceiver(mBLEReceiver, intentFilter);
+	    
 		int state = myBluetoothAdapter.getState();
 		if (state == 10){
 			final Toast toast = Toast.makeText(bleService.this,"Bluetooth is OFF!", Toast.LENGTH_SHORT);
@@ -146,7 +154,6 @@ public class bleService extends Service{
 		
 		//handler.postDelayed(test, 100);
 		
-		 
 		 
 	    return  super.onStartCommand(intent, flags, startId);
 	  }
@@ -194,6 +201,9 @@ public class bleService extends Service{
 		mConnectedGatt2.disconnect();
 	if (mBluetoothAdapter != null)	
 		mBluetoothAdapter.stopLeScan(mLeScanCallback);
+	
+	 unregisterReceiver(mBLEReceiver);
+
 	}
 	 
 	/**
@@ -223,30 +233,12 @@ final class MyThread extends Thread{
  		 
  		 @Override
  		 public void run() {
- 		  // TODO Auto-generated method stub
- 		//mBleWrapper.startScanning();
+
  		dataArray data = new dataArray(0.0f, 0.0f, 0.0f);
  		array_2d[0] = data;
  		array_2d[1] = data;
  		startScan();
-         //mBluetoothAdapter.getBondedDevices();
-    
- 		 /* for(int i=0; i<10; i++){
- 		   try {
- 		    Thread.sleep(5000);
- 		    Intent intent = new Intent();
- 		       intent.setAction(MY_ACTION);
- 		      
- 		       intent.putExtra("DATAPASSED", i);
- 		      
- 		       sendBroadcast(intent);
- 		   } catch (InterruptedException e) {
- 		    // TODO Auto-generated catch block
- 		    e.printStackTrace();
- 		   }
- 		  }
- 		  stopSelf();
- 		 }*/
+
 	
 	
  		 }	
@@ -437,6 +429,7 @@ private BluetoothGattCallback mGattCallback1 = new BluetoothGattCallback() {
         vector = sensorTag.getAccelerometerValue(c);
 		dataArray data = new dataArray(vector[0], vector[1], vector[2]);
 		array_2d[0] = data;
+		Log.e(TAG, "recieved data 1");
 	}
 }; //End of mGattCallback1
 
@@ -557,6 +550,7 @@ private BluetoothGattCallback mGattCallback2 = new BluetoothGattCallback() {
      
 	 dataArray data = new dataArray(vector[0], vector[1], vector[2]);
 	 array_2d[1] = data;
+	 Log.e(TAG, "recieved data 2");
 	}
 }; //End of mGattCallback2
 
@@ -626,6 +620,7 @@ private Runnable runnable = new Runnable() {
          // Log.i(DEBUG, data);
           
           Intent i = new Intent(bleService.this, PostureService.class);
+          i.putExtra("STOP", false);
 		  i.putExtra("XVal1", (float) array_2d[0].xaxis);
 		  i.putExtra("YVal1",(float) array_2d[0].yaxis);
 		  i.putExtra("ZVal1", (float) array_2d[0].zaxis);
@@ -634,25 +629,7 @@ private Runnable runnable = new Runnable() {
 		  i.putExtra("YVal2",(float) array_2d[1].yaxis);
 		  i.putExtra("ZVal2", (float) array_2d[1].zaxis);
 		  startService(i);
-		  
-		  
-		/*  if (count<100){
-		  FileOperations fileOperations = new FileOperations();
-          fileOperations.write(fileName, data,filePath, 3);
-          count++;
-		  }
-		  else if (count == 100){
-			  Handler h = new Handler(Looper.getMainLooper());
-				h.post(new Runnable(){
-					@Override
-					public void run(){
-						//Log.i(DEBUG, "Connection successful, Getting Services");
-						Toast.makeText( bleService.this, "Recording Done", Toast.LENGTH_SHORT).show();
-					}
-				});
-				count = 200;
-		  } */
-          
+
 		  
 		  }
 	   else{
@@ -698,6 +675,53 @@ private void readDevice2(){
 	public void setUpPreferences(){
     	settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
     	editor = settings.edit();
+    	
+    	
+    	String userName, date,fName;
+    	int numFile;
+    	
+    	postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
+    	postureEditor = postureSettings.edit();
+    	userName = postureSettings.getString("name", "Mike");
+    	
+	    postureSettings = getSharedPreferences("posturePrefs",MODE_MULTI_PROCESS );
+	    postureEditor = postureSettings.edit();	
+		
+	    numFile = postureSettings.getInt("numFile", 0);
+     	now.setToNow();
+     	date = now.format("%m-%d-%Y");
+     	
+     	if (numFile != 0){
+     		
+     		
+     		//numFile++; 
+     		now.setToNow();
+         	date = now.format("%m-%d-%Y");
+         	
+        	fName = userName + " Posture " + date + "(" + numFile + ")";
+        	fileName = fName;
+        	fileOps.writeHeader(fName,userName, date);
+        	
+        	postureEditor.putString("fileName", fileName);
+        	numFile++;
+        	postureEditor.putInt("numFile", numFile);
+        	postureEditor.commit();
+     	}
+     	else{
+     		
+     		fName = userName + " Posture " + date;
+        	fileName = fName;
+        	fileOps.writeHeader(fName,userName, date);
+        	
+        	postureEditor.putString("fileName", fileName);
+        	numFile++;
+        	postureEditor.putInt("numFile", numFile);
+        	
+        	postureEditor.commit();
+     		
+     	}
+     	
+     	
     }
 	
 	
@@ -706,6 +730,59 @@ private void readDevice2(){
 		 editor.commit();
 		 stopSelf();
 	}
+	
+	
+	
+	
+	public SharedPreferences postureSettings;
+	public SharedPreferences.Editor postureEditor;
+	private PostureFileOperations fileOps = new PostureFileOperations();
+	
+	private Time now = new Time();
+
+	
+
+	private final BroadcastReceiver mBLEReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			char action = intent.getCharExtra("command", '0');
+			
+			String userName, fName,date;
+			int numFile;
+			
+			Intent i = new Intent(bleService.this, PostureService.class);
+			i.putExtra("STOP", true);
+			startService(i);
+			
+			/*postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
+	    	postureEditor = postureSettings.edit();
+	    	userName = postureSettings.getString("name", "Mike");
+	    	
+		    postureSettings = getSharedPreferences("posturePrefs",MODE_MULTI_PROCESS );
+		    postureEditor = postureSettings.edit();	
+			
+		    numFile = postureSettings.getInt("numFile", 1);
+	     	now.setToNow();
+         	date = now.format("%m-%d-%Y");
+         	
+        	fName = userName + " Posture " + date + "(" + numFile + ")";
+        	fileName = fName;
+        	fileOps.writeHeader(fName,userName, date);
+        	
+        	postureEditor.putString("fileName", fileName);
+        	numFile++;
+        	postureEditor.putInt("numFile", numFile);
+			
+			Log.e("BLESERVICE", "broastcase");*/
+			
+			stopSelf();
+
+		};
+	};
+
+
+	
 };
 
 

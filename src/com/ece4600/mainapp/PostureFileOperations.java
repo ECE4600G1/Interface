@@ -31,7 +31,7 @@ public class PostureFileOperations {
 		   String time;
 		      try {
 		          
-		          File file = new File(PATH, fname);
+		          File file = new File(PATH, fname + ".csv");
 		          // If file does not exists, then create it
 		          if (!file.exists()) {
 		            file.createNewFile();
@@ -84,7 +84,7 @@ public class PostureFileOperations {
 		  
 	      try {
 	        
-	        File file = new File(PATH, fname);
+	        File file = new File(PATH, fname + ".csv");
 	        // If file does not exists, then create it
 	        if (!file.exists()) {
 	          file.createNewFile();
@@ -96,13 +96,13 @@ public class PostureFileOperations {
 	        	fw.append(getTimeStamp() + ",");
 	        } else{
 	        
-	    	fw.append(postureTime + ",");
-	    	fw.append(postureNum + ",");
-	    	fw.append(postureStr);
-	    	fw.append("\r\n");
-	    	if(!STOP){
-	    	fw.append(getTimeStamp() + ",");
-	    	}
+	        	fw.append(postureTime + ",");
+	    		fw.append(postureNum + ",");
+	    		fw.append(postureStr);
+	    		fw.append("\r\n");
+	    		if(!STOP){
+	    			fw.append(getTimeStamp() + ",");
+	    		}
 	        }
 	        fw.close();
 	   

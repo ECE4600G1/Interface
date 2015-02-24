@@ -1,9 +1,11 @@
 package com.ece4600.mainapp;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.LineNumberReader;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -19,6 +21,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.format.Time;
 import android.util.Log;
 import android.widget.LinearLayout;
 
@@ -29,7 +32,7 @@ public class PostureTimeLine extends Activity {
 	private GraphicalView mChartView;
 	private String fileName, filePath;
 	private final String PATH = Environment.getExternalStorageDirectory() + "/wellNode/Posture";
-	
+	private Time now = new Time();
 
 	private TimeSeries series = new TimeSeries("Line");
 	private XYSeriesRenderer renderer = new XYSeriesRenderer();
@@ -37,6 +40,8 @@ public class PostureTimeLine extends Activity {
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 	
+	private int numFile;
+	private String userName;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -54,9 +59,14 @@ public class PostureTimeLine extends Activity {
 	public void readFile(){
 		double x, xLast;
 		int m = 0;
+		int num, lines, n;
+		n = 0;
+		num = 0;
+		filePath = PATH + "/" + fileName + ".csv";
+		File file = new File(filePath);
 		
-		filePath = PATH + "/" + fileName;
-		
+		while(num < numFile){
+			if (file.exists()){
 		BufferedReader br = null;
 		String line = "";
 		
@@ -66,12 +76,21 @@ public class PostureTimeLine extends Activity {
 			 
 			br = new BufferedReader(new FileReader(filePath));
 			
+			
+			LineNumberReader  lnr = new LineNumberReader(new FileReader(filePath));
+			lnr.skip(Long.MAX_VALUE);
+			lines = lnr.getLineNumber() + 1;
+			// Finally, the LineNumberReader object should be closed to prevent resource leak
+			lnr.close();
+			
+			
+			n = 0;
 			//Skip headers
 			for (int i =0; i <9; i++)
 				line = br.readLine(); 
 			
 			//Output the important plot data
-			while ((line = br.readLine()) != null) {
+			while (((line = br.readLine()) != null) & (n < (lines - 11)) ){
 				String[] data = line.split(",");
 				
 				//Log.i("TEST",data[1] +"," + data[2]);
@@ -88,7 +107,7 @@ public class PostureTimeLine extends Activity {
 				//dataLine.addPoint(m, Double.parseDouble(data[0]));
 				
 				
-				
+				n++;
 			
 				m++;
 				
@@ -107,8 +126,17 @@ public class PostureTimeLine extends Activity {
 				}
 			}
 		}
+			}
+		num++;
 		
+		filePath = PATH + "/" + fileName + "(" + num + ")" + ".csv";
+		file = new File(filePath);
+		Log.e("timeline", filePath);
+		}
 		mDataset.addSeries(series);
+		
+		
+		
 	}
 	
 	public void setUpGraphs(){
@@ -164,9 +192,21 @@ public class PostureTimeLine extends Activity {
 	}
 	
 	public void setUpPreferences(){
+		String date;
+		
+		postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
+    	editor = postureSettings.edit();
+  
+    	userName = postureSettings.getString("name", "Mike");
+    	
 		postureSettings = getSharedPreferences("posturePrefs", MODE_PRIVATE);
-	 
-	    fileName = postureSettings.getString("fileName", "");
+		editor = postureSettings.edit();
+		
+		now.setToNow();
+     	date = now.format("%m-%d-%Y");
+		
+	    fileName = userName + " Posture " + date;
+	    numFile = postureSettings.getInt("numFile", 1);
 	}
 	
 	
