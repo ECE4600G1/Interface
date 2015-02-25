@@ -29,6 +29,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -405,18 +406,26 @@ public class Posture extends Activity {
 		   
 		   public void restorePreferences(){
 			   String userName, fName, date;
-			   int x = postureSettings.getInt("standTime", 0);
-			   pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
-		    			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
-		       paintGraph();
-		       
+			  
+			   int temp = postureSettings.getInt("standTime", 0);
+				Log.e("test", String.valueOf(temp));
+				
+				if (temp ==  0){
+					pieChart.updateData(1,1,1,1);
+					paintGraph();
+				
+				}else{
+					pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
+				  			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
+						paintGraph();
+				}
+			 
 		       
 		       posture1.setText(postureSettings.getString("passPosture1", "1."));
 		       posture2.setText(postureSettings.getString("passPosture2", "2."));
 		       posture3.setText(postureSettings.getString("passPosture3", "3."));
 		       posture4.setText(postureSettings.getString("passPosture4", "4."));
 		       posture5.setText(postureSettings.getString("passPosture5", "5."));
-		       
 		
 		       
 		   }

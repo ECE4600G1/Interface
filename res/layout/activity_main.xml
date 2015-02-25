@@ -149,21 +149,21 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/loca"
+                    android:id="@+id/post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".6"
-                    android:text="@string/loca"
+                    android:layout_weight=".5"
                     android:background="@drawable/buttonshape"
-            		android:textColor="#FFFFFF" />
+                    android:text="@string/post"
+                    android:textColor="#FFFFFF" />
 
                 <Button
-                    android:id="@+id/pedo"
+                    android:id="@+id/heart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".4"
+                    android:layout_weight=".5"
                     android:background="@drawable/buttonshape"
-                    android:text="@string/pedo"
+                    android:text="@string/heart"
                     android:textColor="#FFFFFF" />
 
             </TableRow>
@@ -174,22 +174,23 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/post"
+                    android:id="@+id/pedo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".6"
-                    android:text="@string/post"
+                    android:layout_weight=".5"
                     android:background="@drawable/buttonshape"
-            		android:textColor="#FFFFFF" />
+                    android:text="@string/pedo"
+                    android:textColor="#FFFFFF" />
 
                 <Button
-                    android:id="@+id/heart"
+                    android:id="@+id/loca"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".4"
-                    android:text="@string/heart" 
+                    android:layout_weight=".5"
                     android:background="@drawable/buttonshape"
-            		android:textColor="#FFFFFF"/>
+                    android:text="@string/loca"
+                    android:textColor="#FFFFFF" />
+
             </TableRow>
 
         </LinearLayout>

@@ -11,7 +11,7 @@
     <string name="phone">PHONE: XXX-XXXX</string>
     <string name="info">INFORMATION:</string>
     <string name="pedo">Pedometer</string>
-    <string name="heart">Electrocardiogram</string>
+    <string name="heart">ECG</string>
     <string name="loca">Location</string>
     <string name="post">Posture</string>
     <string name="room">Room</string>

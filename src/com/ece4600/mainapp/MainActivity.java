@@ -41,6 +41,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); 
         
+ 	  	//starting Database upload here
+  	  	startService(new Intent(this, ServerService.class));
+        
         
         //database related  starts here
 //        user_name = (TextView)findViewById(R.id.name);
@@ -81,9 +84,7 @@ public class MainActivity extends Activity {
   	  	restorePreferences();
   	  	setUpPostureListener();
   	  	
-  	  	//starting Database upload here
-  	  	startService(new Intent(this, ServerService.class));
-        
+ 
     }
 
     @Override
@@ -217,14 +218,24 @@ public class MainActivity extends Activity {
     }
 	
 	public void restorePreferences(){
+		int temp;
 		name.setText("NAME: " + settings.getString("name", "Mike"));
 		dob.setText("D.O.B.: " + settings.getString("DOB", "MM/DD/YYYY"));
 		weight.setText("WEIGHT: " + settings.getString("weight", "xxx"));
 		sex.setText("GENDER: " + settings.getString("sex", "Male"));
 		
-		pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
-  			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
-		paintGraph();
+		temp = postureSettings.getInt("standTime", 0);
+		Log.e("test", String.valueOf(temp));
+		if (temp ==  0){
+			pieChart.updateData(1,1,1,1);
+			paintGraph();
+		
+		}else{
+			pieChart.updateData(postureSettings.getInt("standTime", 0),postureSettings.getInt("bendTime", 0)
+		  			  ,postureSettings.getInt("sitTime", 0),postureSettings.getInt("lieTime", 0));
+				paintGraph();
+		}
+		
 		
 	}
 	

@@ -1000,9 +1000,11 @@ public class PostureService extends Service{
 		}
 	     
 		////database related///starts here------
-//		Calendar c = Calendar.getInstance(); // testing only will be removed later. 
-//	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
-//	     String strDate = sdf.format(c.getTime());//
+		 Calendar c = Calendar.getInstance(); // testing only will be removed later. 
+	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
+	     String strDate = sdf.format(c.getTime());//
+	     temp_database = postureSettings.getString("posture", "") + postureStr + ","+ strDate +"/";
+	     editor.putString("posture", temp_database);
 //       //hardcoding posture for testing purpose
 //         editor.putString("posture","stand2,"+strDate+"/sit3,"+strDate+"/test4,"+strDate);
 //		

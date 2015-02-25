@@ -56,11 +56,11 @@ public class ServerService extends Service {
         Toast.makeText(this, "The new Service was Created", Toast.LENGTH_LONG).show();
       //  new Thread(new Task()).start();
         setUpPreferences();
-	     Calendar c = Calendar.getInstance(); // testing only will be removed later. 
+	     /*Calendar c = Calendar.getInstance(); // testing only will be removed later. 
 	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
 	     String strDate = sdf.format(c.getTime());//
         //hardcoding posture for testing purpose
-        editor.putString("posture","stand2,"+strDate+"/sit3,"+strDate+"/test4,"+strDate);
+        editor.putString("posture","stand2,"+strDate+"/sit3,"+strDate+"/test4,"+strDate);*/
 	 //    editor.putString("posture","");
     //    editor.putInt("counter", 3);
      // editor.

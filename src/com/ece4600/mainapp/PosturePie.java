@@ -45,7 +45,7 @@ public class PosturePie {
 	public void initialize(){
 		timeP1= 25;
 		timeP2= 25;
-		timeP3= 150;
+		timeP3= 25;
 		timeP4= 25;
 		
 		totalTime = timeP1 + timeP2 + timeP3 + timeP4;
