@@ -36,10 +36,10 @@ public class ServerService extends Service {
     	editor = postureSettings.edit();
     }
 	
-	public void restorePreferences(){
-
-		
-	}
+//	public void restorePreferences(){
+//
+//		
+//	}
 	
 	////
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -53,7 +53,7 @@ public class ServerService extends Service {
 	
 	@Override
     public void onCreate() {
-        Toast.makeText(this, "The new Service was Created", Toast.LENGTH_LONG).show();
+   //     Toast.makeText(this, "The new Service was Created", Toast.LENGTH_LONG).show();
       //  new Thread(new Task()).start();
         setUpPreferences();
 	     /*Calendar c = Calendar.getInstance(); // testing only will be removed later. 
@@ -64,7 +64,7 @@ public class ServerService extends Service {
 	 //    editor.putString("posture","");
     //    editor.putInt("counter", 3);
      // editor.
-        editor.commit();
+     //   editor.commit();
 
         
         
@@ -152,7 +152,8 @@ public class ServerService extends Service {
         	//             lastname_database = json.getString(TAG_LASTNAME);
         	        	 Log.d("Login Successful!", "yes");
         	         	//Intent i = new Intent(Login.this, ReadComments.class);
-
+        	        	 editor.remove("posture");
+        	        	 editor.commit();
         	         	return;
         	         }else{
         	        	
@@ -265,14 +266,14 @@ public class ServerService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
     	// For time consuming an long tasks you can launch a new thread here...
-        Toast.makeText(this, " Service Started", Toast.LENGTH_LONG).show();
+     //   Toast.makeText(this, " Service Started", Toast.LENGTH_LONG).show();
        
    
     }
  
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+     //   Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
         scheduler.shutdown();
         super.onDestroy();
     }
