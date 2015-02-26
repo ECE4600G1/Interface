@@ -152,7 +152,7 @@ public class ServerService extends Service {
         	//             lastname_database = json.getString(TAG_LASTNAME);
         	        	 Log.d("Login Successful!", "yes");
         	         	//Intent i = new Intent(Login.this, ReadComments.class);
-        	        	 editor.remove("posture");
+        	        	 editor.putString("posture","");
         	        	 editor.commit();
         	         	return;
         	         }else{

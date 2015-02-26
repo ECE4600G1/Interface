@@ -1020,6 +1020,7 @@ public class PostureService extends Service{
 		editor.putString("passPosture3",postureSettings.getString("passPosture2", ""));
 		editor.putString("passPosture2", postureSettings.getString("passPosture1", ""));
 		editor.putString("passPosture1", temp);
+		editor.commit();
 	}
 	
 	
