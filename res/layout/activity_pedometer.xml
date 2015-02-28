@@ -66,10 +66,27 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:onClick="onClick"
+                android:id="@+id/pedoSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Settings" 
+                android:textColor="#FFFFFF" 
+                android:background="@drawable/buttonshape"/>
+
+        </TableRow>
 
         <TableRow
             android:id="@+id/tableRow6"
@@ -81,22 +98,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:background="@drawable/buttonshape"
                 android:gravity="center"
                 android:onClick="onClick"
-                android:text="@string/pedo_start" 
-                android:background="@drawable/buttonshape"
-            	android:textColor="#FFFFFF"/>
+                android:text="@string/pedo_start"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/pedo_stop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:background="@drawable/buttonshape"
                 android:gravity="center"
                 android:onClick="onClick"
-                android:text="@string/pedo_stop" 
-                android:background="@drawable/buttonshape"
-            	android:textColor="#FFFFFF"/>
+                android:text="@string/pedo_stop"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         <TableRow
@@ -109,23 +126,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:background="@drawable/buttonshape"
                 android:gravity="center"
                 android:onClick="onClick"
                 android:text="@string/pedo_reset"
-                android:background="@drawable/buttonshape"
-            	android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/returnpedo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:background="@drawable/buttonshape"
                 android:gravity="center"
                 android:onClick="onClick"
-                android:text="@string/returnpedo" 
-                android:background="@drawable/buttonshape"
-            	android:textColor="#FFFFFF"/>
+                android:text="@string/returnpedo"
+                android:textColor="#FFFFFF" />
         </TableRow>
+
     </LinearLayout>
 
     <ProgressBar

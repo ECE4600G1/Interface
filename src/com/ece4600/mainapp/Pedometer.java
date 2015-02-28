@@ -29,7 +29,7 @@ import android.widget.Toast;
 public class Pedometer extends Activity{
 	
 	private TextView step,speed, target, bar;
-	Button reset, returnbutton, start, stop;
+	Button reset, returnbutton, start, stop, settings;
 	private int stepnum = 0, stepdetect = 0, stepthres = 0, targetnum = 0, barnum = 0;
 	private double speednum = 0, sizenum = 0, stepprenum = 0, steppretotal = 0, steppreav = 0;
 	private long timedetect = 0, timeSecondsstart = 0, timestart = 0, timeSecondsstop = 0, timestop = 0;
@@ -59,6 +59,7 @@ public class Pedometer extends Activity{
 		returnbutton = (Button) findViewById(R.id.returnpedo);
 		start = (Button) findViewById(R.id.pedo_start);
 		stop = (Button) findViewById(R.id.pedo_stop);
+		settings = (Button)findViewById(R.id.pedoSettings);
 		myBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
   	  	progressBar = (ProgressBar)findViewById(R.id.progressBar1);
 	  	progressBar.setProgress(0);
@@ -186,6 +187,10 @@ public class Pedometer extends Activity{
 		    bar.setText("0%");
 		  	progressBar.setProgress(0);
 			break;
+		case R.id.pedoSettings:
+			startActivity(new Intent(Pedometer.this, TargetSetting.class));
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -231,7 +236,7 @@ public class Pedometer extends Activity{
 		switch (item.getItemId()) {
 		case R.id.action_settings:
 			PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
-    		startActivity(new Intent(this, TargetSetting.class));
+    		startActivity(new Intent(this, Bluetooth.class));
     		finish();
     		break;
 		case R.id.pedomenu_heart:
@@ -265,7 +270,15 @@ public class Pedometer extends Activity{
 	public void restorePreferences(){
 		target.setText(settingst.getString("target", "0000"));
 		targetnum = Integer.parseInt(settingst.getString("target", "0000"));
-		sizenum = Double.parseDouble(settingst.getString("size", "0.0f"));
+		try
+		{
+			sizenum = Double.parseDouble(settingst.getString("size", "1.0f"));
+		}
+		catch(NumberFormatException e)
+		{
+		  //not a double
+		}
+		
 		
 	}
 		

@@ -60,7 +60,7 @@ public class TargetSetting extends Activity {
 	}
 
 	public void emptyText(){
-		if (size.getText().toString().equals("") || target.getText().toString().equals("")){
+		if (size.getText().toString().equals("") || target.getText().toString().equals("") || size.getText().toString().equals("0") ||  target.getText().toString().equals("0") ){
 			AlertDialog.Builder alertDialogHint = new AlertDialog.Builder(this);
 			alertDialogHint.setMessage("Inputs are EMPTY! Please enter again!");
 			alertDialogHint.setPositiveButton("OK",
