@@ -13,28 +13,28 @@
             android:id="@+id/but_isroom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:layout_weight=".33"
-            android:text="Room" 
-              android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF" />
+            android:layout_weight=".33"
+            android:background="@drawable/buttonshape"
+            android:text="Room"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btn_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".33"
-            android:text="Map" 
-              android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF" />
+            android:background="@drawable/buttonshape"
+            android:text="Map"
+            android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/timeLineReturn"
+            android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".33"
-            android:text="Return" 
-              android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF" />
+            android:background="@drawable/buttonshape"
+            android:text="Return"
+            android:textColor="#FFFFFF" />
     </TableRow>
 
     <TableRow
@@ -44,22 +44,22 @@
 
         <Button
             android:id="@+id/read_xml"
-           android:layout_width="match_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
-            android:text="Load" 
-              android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF" />
+            android:background="@drawable/buttonshape"
+            android:text="Load"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/check_data"
-           android:layout_width="match_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
+            android:background="@drawable/buttonshape"
             android:text="Start"
-            android:visibility="visible"
-              android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF"  />
+            android:textColor="#FFFFFF"
+            android:visibility="visible" />
 
         <ToggleButton
             android:id="@+id/locationSave"
@@ -69,23 +69,41 @@
             android:background="@drawable/mytoggle"
             android:textColor="#FFFFFF"
             android:textOff="Record"
-            android:textOn="Record"
-            />
+            android:textOn="Record" />
 
         <Button
             android:id="@+id/pause"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
+            android:background="@drawable/buttonshape"
             android:text="Pause"
-              android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF"  />
+            android:textColor="#FFFFFF" />
     </TableRow>
+
+    <TextView
+        android:id="@+id/tv_current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="Your current location is:" />
+
+    <LinearLayout
+        android:id="@+id/object_View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical" >
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
 
         <LinearLayout
             android:layout_width="match_parent"
