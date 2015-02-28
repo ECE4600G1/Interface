@@ -178,11 +178,6 @@ public class MainActivity extends Activity {
     		stopService(new Intent(this, ServerService.class));
     		finish();
     		break;
-    	case R.id.editProfile:
-    		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
-    		startActivity(new Intent(this, EditUserSettings.class));
-    		finish();
-    		break;
     	case R.id.action_settings:
     		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
     		startActivity(new Intent(this, Bluetooth.class));

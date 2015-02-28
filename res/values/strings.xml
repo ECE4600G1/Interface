@@ -56,7 +56,7 @@
     <string name="blueposture">Posture</string>
     <string name="bluepair">Paired Devices</string>
     <string name="blueoff">Turn Off</string>
-    <string name="bluetooth">Bluetooth Settings</string>
+    <string name="bluetooth">Bluetooth Settings:</string>
     <string name="bluecancel">Cancel</string>
     <string name="pedo_step">Step detection</string>
     <string name="pedo_stepnum">0.0</string>

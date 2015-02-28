@@ -69,9 +69,15 @@ public class PostureTimeLine extends Activity {
 	    
 	    
 	    filePath = PATH + "/" + fileName + ".csv";
+	    File file = new File(filePath);
+	    if (file.exists()){
 	    readFile();
-
 	    paintGraph();
+	    }else{
+	    	mDataset.addSeries(series);
+	    	paintGraph();
+	    }
+	    
 	    
 	    initButtons();
 	    

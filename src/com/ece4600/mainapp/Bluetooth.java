@@ -51,7 +51,6 @@ public class Bluetooth extends Activity{
 		
 		blueon = (Button)findViewById(R.id.blueon);
 		blueoff = (Button)findViewById(R.id.blueoff);
-		bluecancel = (Button)findViewById(R.id.bluecancel);
 		blueposture =(Button)findViewById(R.id.blueposture);
 		bluepedometer =(Button)findViewById(R.id.bluepedometer);
 		bluemain =(Button)findViewById(R.id.bluemain);
@@ -118,10 +117,7 @@ public class Bluetooth extends Activity{
 		case R.id.blueoff:
 			myBluetoothAdapter.disable();
 			break;
-		case R.id.bluecancel:
-			//poll();
-			startActivity(new Intent(Bluetooth.this, MainActivity.class));
-			finish();
+		
 		default:
 			break;
 		}		     
@@ -130,13 +126,7 @@ public class Bluetooth extends Activity{
 	
 	
 	public void initButtons(){
-		bluecancel.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(Bluetooth.this, MainActivity.class));
-			}
-		});
-		
+	
 	    
 		blueposture.setOnClickListener(new View.OnClickListener() {
 			@Override
