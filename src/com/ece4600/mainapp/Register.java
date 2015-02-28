@@ -217,7 +217,8 @@ public class Register extends Activity {
 				sex = "Other";
 			}
 
-			dob = month.getSelectedItem().toString() + "/" + day.getSelectedItem().toString() + "/" + year.getSelectedItem().toString();
+			//dob = month.getSelectedItem().toString() + "/" + day.getSelectedItem().toString() + "/" + year.getSelectedItem().toString();
+			dob = year.getSelectedItem().toString() + "-" + month.getSelectedItem().toString() + "-" + day.getSelectedItem().toString();
 			
 
 	     
