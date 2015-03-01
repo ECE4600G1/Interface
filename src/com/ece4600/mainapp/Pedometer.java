@@ -41,7 +41,7 @@ public class Pedometer extends Activity{
 	
 	private double peak = 0, fftpeak = 0, freq = 0;
 	private static int fs = 50;
-	private int N = 256;
+	private int N = 1024;
 	private int index = 0, freqindex = 0, j = 0;
 	private float[] arrayX = new float[N];
 	private float[] arrayY = new float[N];
@@ -300,8 +300,8 @@ public class Pedometer extends Activity{
 		        	float CurrentZ  = intent.getFloatExtra("CurrentZ", 0.0f);
 		        	
 		        	if (fftflag == true){
-			        	freq = freqindex*fs/N;
-			        	steppreav = freqindex*fs*sizenum*2.237/(N*2);
+			        	freq = (double)freqindex*(double)fs/(double)N;
+			        	steppreav = freq*sizenum*2.237;
 			        	//stepprenum = freq*N/fs;
 			        	//steppretotal = steppretotal + stepprenum;
 			        	//steppreav = (steppretotal+stepdetect)/2;
@@ -311,7 +311,9 @@ public class Pedometer extends Activity{
 		        	
 		        	if (startflag == true){
 		        	step.setText(Integer.toString(stepdetect) + "steps");
-		        	speed.setText(Double.toString(steppreav) + " Miles/hour");
+		        		if (steppreav != 0){
+		        			speed.setText(Double.toString(steppreav) + " Miles/hour");
+		        		}
 					barnum = stepdetect*100/targetnum;
 				    Log.i("Bar", "Bar"+ barnum + "Step"+ stepdetect);
 				    bar.setText(Integer.toString(barnum) + "%");
