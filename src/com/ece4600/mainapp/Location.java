@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -144,10 +145,20 @@ public class Location extends Activity implements OnClickListener,
 						}
 						tvCurrent.setText("x is "+ zx/5 + "******y is " + zy/5);
 
-						zx = ((185 + 10.81 * (zx)) * 9.3677) / 9362; // ((200+10.81*n)*9.3677)/9362
-						zy = ((450 - 10.81 * (zx)) * 9.3677) / 6623; // ((470+10.81*n)*9.3677)/6623
+						zx = ((185 + 10.81 * (zx/5)) * 9.3677) / 9362; // ((200+10.81*n)*9.3677)/9362
+						zy = ((450 - 10.81 * (zy/5)) * 9.3677) / 6623; // ((470+10.81*n)*9.3677)/6623
 																	// on y.
-
+						
+						// TODO 
+						 Calendar c = Calendar.getInstance(); // testing only will be removed later. 
+		        	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
+		        	     String strDate = sdf.format(c.getTime());//
+		        	     
+		        	     editor.putString("location", strDate +  "," + String.valueOf(zx) + "," + String.valueOf(zy));
+		        	     editor.commit();
+		        	     
+						 
+						 
 						if (saveState) {
 							fileOps.write(fileName, zx, zy);
 						}
@@ -739,6 +750,11 @@ public class Location extends Activity implements OnClickListener,
 		editor = postureSettings.edit();
 
 		userName = postureSettings.getString("name", "Mike");
+		
+
+		postureSettings = getSharedPreferences("posturePrefs",MODE_MULTI_PROCESS );
+		editor = postureSettings.edit();	
+		
 	}
 
 	@Override
@@ -774,4 +790,8 @@ public class Location extends Activity implements OnClickListener,
 		}
 		return true;
 	}
+	
+	
+	
+	
 }
