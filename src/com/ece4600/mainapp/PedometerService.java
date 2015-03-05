@@ -4,13 +4,18 @@ import java.util.concurrent.TimeUnit;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
 public class PedometerService extends Service{
-
+	public SharedPreferences postureSettings;
+	public SharedPreferences.Editor postureEditor;
+	
+	private int currentNumber;
+	
 	private float lastX = 0, lastY = 0, lastZ = 0;
 	private float deltaX = 0;
 	private float deltaY = 0;
@@ -56,6 +61,7 @@ public class PedometerService extends Service{
 		/*Called by the system when an app component requests that a 
 		 * Service start using startService()
 		 * Once started, it can run in the background indefinitely*/
+		
 		
 		float X = intent.getFloatExtra("X", 0.0f);
 		float Y = intent.getFloatExtra("Y", 0.0f);
@@ -208,4 +214,7 @@ public class PedometerService extends Service{
 				}
 			});
 		}
+	
+
+	
 	}

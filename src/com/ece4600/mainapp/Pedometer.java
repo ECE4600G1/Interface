@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 public class Pedometer extends Activity{
 	
+	
+	
 	private TextView step,speed, target, bar;
 	Button reset, returnbutton, start, stop, settings;
 	private int stepnum = 0, stepdetect = 0, stepthres = 0, targetnum = 0, barnum = 0;
@@ -147,6 +149,7 @@ public class Pedometer extends Activity{
 			//timeSecondsstart = TimeUnit.MILLISECONDS.toSeconds(timestart);
 			//countdowndisplay();
 			stepthres = stepnum;
+			//stepthres = 0;
 			speednum = 0;
 			startflag = true;
 			final Toast toast = Toast.makeText(getApplicationContext(), "Step Detection Start", Toast.LENGTH_SHORT);
@@ -288,6 +291,10 @@ public class Pedometer extends Activity{
 		        
 		        	stepnum = intent.getIntExtra("STEP", stepnum);
 		        	stepdetect = stepnum - stepthres;
+		        	
+		        	editort.putInt("stepsTaken", stepdetect);
+		        	editort.commit();
+		        	
 //		        	timestop = System.currentTimeMillis();
 //					timeSecondsstop = TimeUnit.MILLISECONDS.toSeconds(timestop);
 //					timedetect = timeSecondsstop - timeSecondsstart;
@@ -392,5 +399,8 @@ public class Pedometer extends Activity{
 			return fft;
 
 		}
+		
+		
+	
 
 }
