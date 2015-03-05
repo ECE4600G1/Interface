@@ -149,6 +149,9 @@ public class Pedometer extends Activity{
 			//timeSecondsstart = TimeUnit.MILLISECONDS.toSeconds(timestart);
 			//countdowndisplay();
 			stepthres = stepnum;
+			editort.putInt("stepthres", stepthres);
+			editort.commit();
+			
 			//stepthres = 0;
 			speednum = 0;
 			startflag = true;
@@ -292,8 +295,8 @@ public class Pedometer extends Activity{
 		        	stepnum = intent.getIntExtra("STEP", stepnum);
 		        	stepdetect = stepnum - stepthres;
 		        	
-		        	editort.putInt("stepsTaken", stepdetect);
-		        	editort.commit();
+		        	//editort.putInt("stepsTaken1", stepdetect);
+		        	//editort.commit();
 		        	
 //		        	timestop = System.currentTimeMillis();
 //					timeSecondsstop = TimeUnit.MILLISECONDS.toSeconds(timestop);
