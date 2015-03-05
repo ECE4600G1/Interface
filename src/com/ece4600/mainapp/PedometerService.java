@@ -11,8 +11,8 @@ import android.os.Looper;
 import android.util.Log;
 
 public class PedometerService extends Service{
-	public SharedPreferences postureSettings;
-	public SharedPreferences.Editor postureEditor;
+	public SharedPreferences settingst;
+	public SharedPreferences.Editor editort;
 	
 	private int currentNumber;
 	
@@ -210,11 +210,18 @@ public class PedometerService extends Service{
 					i.putExtra("CurrentZ", lastZ);
 					
 					i.putExtra("STEP", stepnum);
+					
+					editort.putInt("stepsTaken2", stepnum);
+					editort.commit();
+					
 					sendBroadcast(i);
 				}
 			});
 		}
 	
-
+	public void setUpPreferences(){
+    	settingst = getSharedPreferences("pedoPrefs", MODE_PRIVATE);
+    	editort = settingst.edit();
+    }
 	
 	}
