@@ -83,6 +83,9 @@ public class ECGLine {
 		mRenderer.setAxesColor(Color.GRAY);
 		mRenderer.setZoomButtonsVisible(false);
 		mRenderer.setZoomEnabled(false);
+		mRenderer.setPanEnabled(false,false);
+		mRenderer.setClickEnabled(false);
+		
 		//mRenderer.setMargins(margins);
 		mRenderer.setChartTitle("ECG Measurement");
 		mRenderer.setChartTitleTextSize(35);
