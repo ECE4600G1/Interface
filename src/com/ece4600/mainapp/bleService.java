@@ -675,6 +675,10 @@ private void readDevice2(){
 
 	
 	public void setUpPreferences(){
+		String PATH = Environment.getExternalStorageDirectory() + "/wellNode/Posture";
+
+		
+		
     	settings = getSharedPreferences("bluetoothPrefs", MODE_PRIVATE);
     	editor = settings.edit();
     	
@@ -682,39 +686,69 @@ private void readDevice2(){
     	String userName, date,fName;
     	int numFile;
     	
+    	numFile = 0;
+    	
     	postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
     	postureEditor = postureSettings.edit();
-    	userName = postureSettings.getString("name", "Mike");
+    	userName = "Mike";//postureSettings.getString("name", "Mike");
     	
 	    postureSettings = getSharedPreferences("posturePrefs",MODE_MULTI_PROCESS );
 	    postureEditor = postureSettings.edit();	
 		
-	    numFile = postureSettings.getInt("numFile", 0);
+	    //numFile = postureSettings.getInt("numFile", 0);
      	now.setToNow();
-     	date = now.format("%m-%d-%Y");
+     	date = "02-24-2015";//now.format("%m-%d-%Y");
      	
         Calendar c = new GregorianCalendar();
 	    int day =c.get(Calendar.DAY_OF_MONTH);
 	    
-		if (day != postureSettings.getInt("currentDay", 0)){
+		/*if (day != postureSettings.getInt("currentDay", 0)){
 			numFile = 0;
-		}
-     	
+		}*/
+	    fileName = userName + " Posture " + date;
+	    filePath = PATH + "/" + fileName + ".csv";
+	    File file = new File(filePath);
+	    
+	    if(file.exists()){
+	    	Log.i("file", "file exists");
+	    	while(file.exists()){
+	    		numFile++;
+	    		fileName = userName + " Posture " + date + "(" + numFile + ")";
+	    		filePath = PATH + "/" + fileName + ".csv";
+	    		file = new File(filePath);
+	    	}
+	    	Log.i("file", String.valueOf(numFile));
+	    }else{
+	    	Log.i("file", "file doenst exists");
+	    }
+	    
+	    
+	    
+	    Log.d("Files", "Path: " + PATH);
+	    File f = new File(PATH);        
+	    File file2[] = f.listFiles();
+	    Log.d("Files", "Size: "+ file2.length);
+	    for (int i=0; i < file2.length; i++)
+	    {
+	        Log.d("Files", "FileName:" + file2[i].getName());
+	    }
      	if (numFile != 0){
      		
      		
-     		//numFile++; 
-     		now.setToNow();
-         	date = now.format("%m-%d-%Y");
+     		
+     	//	now.setToNow();
+         	//date = now.format("%m-%d-%Y");
          	
         	fName = userName + " Posture " + date + "(" + numFile + ")";
         	fileName = fName;
         	fileOps.writeHeader(fName,userName, date);
         	
-        	postureEditor.putString("fileName", fileName);
         	numFile++;
+        	postureEditor.putString("fileName", fileName);
         	postureEditor.putInt("numFile", numFile);
         	postureEditor.commit();
+        	
+        	Log.i("file", fName);
      	}
      	else{
      		

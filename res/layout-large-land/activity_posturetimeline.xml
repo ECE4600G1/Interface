@@ -66,44 +66,20 @@
            
             >
 
-            <Button
-                android:id="@+id/decrease"
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="&lt;"
-                android:textStyle="bold" 
-                android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF"/>
-
-            <TextView
-                android:id="@+id/numFile"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:gravity="center"
-                android:text="File index: 00"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/increase"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text=">"
-                android:textStyle="bold"
-                android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF" />
+                 android:layout_weight="0.5"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/timeLineReturn"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:text="Return" 
+                android:layout_weight="0.25"
                 android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF"
-                android:layout_weight="0.25" />
+                android:text="Return"
+                android:textColor="#FFFFFF" />
 
         </TableRow>
     </TableLayout>

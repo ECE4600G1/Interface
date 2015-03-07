@@ -68,7 +68,7 @@ public class PostureFileOperations {
 		          fw.append("Time Stamp,Duration,Posture #,Posture");
 		          fw.append("\r\n");
 		          
-		          //fw.append(time + ",");
+		          
 		          fw.close();
 		          Log.d("Suceess","Sucess");
 		          

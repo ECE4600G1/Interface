@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -25,8 +27,13 @@ import android.os.Environment;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class PostureTimeLine extends Activity {
@@ -44,11 +51,18 @@ public class PostureTimeLine extends Activity {
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 	
-	private int numFile, indexFile;
+	private int numFile, indexFile, m;
 	private String userName;
 	
 	Button increaseBut, decreaseBut, returnBut;
 	TextView numFileStr;
+	
+	
+	private int[] count = new int[100];
+	private String[] arraySpinner;
+	
+	Spinner spinner;
+	private ArrayAdapter<String> dataAdapter;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -61,14 +75,28 @@ public class PostureTimeLine extends Activity {
 	    
 	    indexFile = 0;
 	    
-	    increaseBut = (Button)findViewById(R.id.increase);
-	    decreaseBut  = (Button)findViewById(R.id.decrease);
+	   // increaseBut = (Button)findViewById(R.id.increase);
+	    //decreaseBut  = (Button)findViewById(R.id.decrease);
 	    returnBut = (Button)findViewById(R.id.timeLineReturn);
 	    
-	    numFileStr = (TextView)findViewById(R.id.numFile);
+	    //numFileStr = (TextView)findViewById(R.id.numFile);
 	    
 	    
-	    filePath = PATH + "/" + fileName + ".csv";
+	  
+	    
+	    
+	    initButtons();
+	    
+	    
+	    spinner = (Spinner) findViewById(R.id.spinner1);
+	    dataAdapter = new ArrayAdapter<String>(this,
+	      android.R.layout.simple_spinner_item, new ArrayList<String>());
+	    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    spinner.setAdapter(dataAdapter);
+	    
+	    checkFiles();
+	    
+	   /* filePath = PATH + "/" + spinner.getItemAtPosition(0).toString();
 	    File file = new File(filePath);
 	    if (file.exists()){
 	    readFile();
@@ -76,13 +104,40 @@ public class PostureTimeLine extends Activity {
 	    }else{
 	    	mDataset.addSeries(series);
 	    	paintGraph();
-	    }
+	    }*/
 	    
 	    
-	    initButtons();
+	    spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+	        public void onItemSelected(AdapterView<?> parent, View arg1,
+	                int pos, long arg3) {
+	        	
+	        	seeNextPlot();
+	        	
+	            String Text = parent.getSelectedItem().toString();
+	            
+	            filePath = PATH + "/" + spinner.getItemAtPosition(pos).toString();
+	            
+	            //filePath = PATH + "/" + Text.toString();
+	            
+	    	    File file = new File(filePath);
+	    	    if (file.exists()){
+	    	    readFile();
+	    	    paintGraph();
+	    	    }else{
+	    	    	mDataset.addSeries(series);
+	    	    	paintGraph();
+	    	    }
+	              }
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+	          }
+	);
 	    
-	    
-	    // TODO Auto-generated method stub
 	}
 	
 	public void readFile(){
@@ -125,7 +180,7 @@ public class PostureTimeLine extends Activity {
 				String[] data = line.split(",");
 				
 				//Log.i("TEST",data[1] +"," + data[2]);
-				
+				try{
 				series.add(x, Double.valueOf(data[2]));
 				x = x + Double.valueOf(data[1]);
 				if( (x - xLast) >= 1000){
@@ -137,6 +192,9 @@ public class PostureTimeLine extends Activity {
 				
 				//dataLine.addPoint(m, Double.parseDouble(data[0]));
 				
+				} catch (NumberFormatException e){
+					Log.e("timeline", "FATAL NUMBER ERROr");
+				}
 				
 				n++;
 			
@@ -228,7 +286,7 @@ public class PostureTimeLine extends Activity {
     	editor = postureSettings.edit();
   
     	userName = postureSettings.getString("name", "Mike");
-    	
+    	Log.d("name", userName);
 		postureSettings = getSharedPreferences("posturePrefs", MODE_PRIVATE);
 		editor = postureSettings.edit();
 		
@@ -241,7 +299,7 @@ public class PostureTimeLine extends Activity {
 	
 	
 	public void initButtons(){
-		increaseBut.setOnClickListener(new View.OnClickListener() {
+		/*increaseBut.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
@@ -297,6 +355,7 @@ public class PostureTimeLine extends Activity {
 				
 			}
 		});	
+		*/
 		
 		returnBut.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -331,5 +390,31 @@ public class PostureTimeLine extends Activity {
 		
 	}
 	
+	
+	public void checkFiles(){
+		String [] name = userName.split(" ");
+		
+		m = 0;
+	    Log.d("Files", "Path: " + PATH);
+	    File f = new File(PATH);        
+	    File file2[] = f.listFiles();
+	    Log.d("Files", "Size: "+ file2.length);
+	    for (int i=0; i < file2.length; i++)
+	    {
+	    	Log.d("Files", "FileName:" + file2[i].getName());
+	        String[] sep = file2[i].getName().split(" ");
+	        Log.d("Files", sep[0]);
+	        
+	        if (sep[0].equals(name[0])){
+	        	dataAdapter.add(file2[i].getName());
+	        	
+	        }
+	        
+	    }
+	    
+	 
+	    
+	    
+	}
 	
 }

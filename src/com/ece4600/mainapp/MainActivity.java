@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main); 
         
  	  	//starting Database upload here
-  	  	startService(new Intent(this, ServerService.class));
+  	  startService(new Intent(this, ServerService.class));
         
         
         //database related  starts here
