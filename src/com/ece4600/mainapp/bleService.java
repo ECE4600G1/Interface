@@ -690,14 +690,14 @@ private void readDevice2(){
     	
     	postureSettings = getSharedPreferences("userPrefs", MODE_PRIVATE);
     	postureEditor = postureSettings.edit();
-    	userName = "Mike";//postureSettings.getString("name", "Mike");
+    	userName = postureSettings.getString("name", "Mike");
     	
 	    postureSettings = getSharedPreferences("posturePrefs",MODE_MULTI_PROCESS );
 	    postureEditor = postureSettings.edit();	
 		
 	    //numFile = postureSettings.getInt("numFile", 0);
      	now.setToNow();
-     	date = "02-24-2015";//now.format("%m-%d-%Y");
+     	date = now.format("%m-%d-%Y");
      	
         Calendar c = new GregorianCalendar();
 	    int day =c.get(Calendar.DAY_OF_MONTH);

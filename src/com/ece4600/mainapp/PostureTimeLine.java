@@ -41,7 +41,7 @@ public class PostureTimeLine extends Activity {
 	private SharedPreferences.Editor editor;
 	private static Context context;
 	private GraphicalView mChartView;
-	private String fileName, filePath;
+	private String fileName, filePath, currentFile;
 	private final String PATH = Environment.getExternalStorageDirectory() + "/wellNode/Posture";
 	private Time now = new Time();
 
@@ -295,6 +295,8 @@ public class PostureTimeLine extends Activity {
 		
 	    fileName = userName + " Posture " + date;
 	    numFile = postureSettings.getInt("numFile", 1);
+	    
+	    currentFile = postureSettings.getString("fileName", "") + ".csv";
 	}
 	
 	
@@ -405,7 +407,7 @@ public class PostureTimeLine extends Activity {
 	        String[] sep = file2[i].getName().split(" ");
 	        Log.d("Files", sep[0]);
 	        
-	        if (sep[0].equals(name[0])){
+	        if (sep[0].equals(name[0]) &&  !file2[i].getName().equals(currentFile)){
 	        	dataAdapter.add(file2[i].getName());
 	        	
 	        }
