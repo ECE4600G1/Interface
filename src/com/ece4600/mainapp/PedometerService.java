@@ -14,8 +14,6 @@ public class PedometerService extends Service{
 	public SharedPreferences settingst;
 	public SharedPreferences.Editor editort;
 	
-	private int currentNumber;
-	
 	private float lastX = 0, lastY = 0, lastZ = 0;
 	private float deltaX = 0;
 	private float deltaY = 0;
@@ -24,7 +22,7 @@ public class PedometerService extends Service{
 	private float MaxX = 0, xoldvalue = 0, MaxY = 0, yoldvalue = 0, MaxZ = 0, zoldvalue = 0;
 	private int stepnum = 0, i = 0, xp = 0, yp = 0, zp = 0, xn = 0, yn = 0, zn = 0, iteration = 500;
 	private long LastStepDetection = 0;
-	private float StepDetectionDelta = 0, speednum = 0;
+	private float StepDetectionDelta = (float) 0.1, speednum = 0;
 	private double DifferenceDelta = 1.0;
 	private double minPeak = 0.2;
 	public static dataArrayFloat[] array_1d = new dataArrayFloat[1];
@@ -72,8 +70,9 @@ public class PedometerService extends Service{
 		
 		Log.i("Pedometer", String.valueOf(X) + "," + String.valueOf(Y) + ","+String.valueOf(Z));
 		
+		setUpPreferences();
 		stepDetection();
-		
+
 		return super.onStartCommand(intent,flags, startId);
 	}
 	
@@ -130,11 +129,11 @@ public class PedometerService extends Service{
 				if (deltaX > 0) {
 					xp++;
 					MaxX = Math.max(MaxX, Math.max(Math.abs(accX), xoldvalue));
+					LastStepDetection = time;
 				} else if (xp > 2) {
 					if (deltaX < 0) {
 						xn++;
 						if (xn > 1 && delta > StepDetectionDelta && MaxX - Math.abs(accX) > minPeak) {
-							LastStepDetection = time;
 							stepnum++;
 							//timeSeconds += timeSeconds;
 							iteration++;
@@ -151,11 +150,11 @@ public class PedometerService extends Service{
 				if (deltaY > 0) {
 					yp++;
 					MaxY = Math.max(MaxY, Math.max(Math.abs(accY), yoldvalue));
+					LastStepDetection = time;
 				} else if (yp > 2) {
 					if (deltaY < 0) {
 						yn++;
 						if (yn > 1 && delta > StepDetectionDelta && MaxY - Math.abs(accY) > minPeak) {
-							LastStepDetection = time;
 							stepnum++;
 							//timeSeconds += timeSeconds;
 							iteration++;
@@ -172,11 +171,11 @@ public class PedometerService extends Service{
 				if (deltaZ > 0) {
 					zp++;
 					MaxZ = Math.max(MaxZ, Math.max(Math.abs(accZ), zoldvalue));
+					LastStepDetection = time;
 				} else if (zp > 2) {
 					if (deltaZ < 0) {
 						zn++;
 						if (zn > 1 && delta > StepDetectionDelta && MaxZ - Math.abs(accZ) > minPeak) {
-							LastStepDetection = time;
 							stepnum++;
 							//timeSeconds += timeSeconds;
 							iteration++;
@@ -211,13 +210,14 @@ public class PedometerService extends Service{
 					
 					i.putExtra("STEP", stepnum);
 					
-					editort.putInt("stepsTaken2", stepnum);
+					editort.putInt("STEP", stepnum);
 					editort.commit();
-					
 					sendBroadcast(i);
+					
 				}
 			});
 		}
+
 	
 	public void setUpPreferences(){
     	settingst = getSharedPreferences("pedoPrefs", MODE_PRIVATE);

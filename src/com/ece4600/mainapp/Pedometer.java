@@ -13,7 +13,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -33,7 +32,8 @@ public class Pedometer extends Activity{
 	private TextView step,speed, target, bar;
 	Button reset, returnbutton, start, stop, settings;
 	private int stepnum = 0, stepdetect = 0, stepthres = 0, targetnum = 0, barnum = 0;
-	private double speednum = 0, sizenum = 0, stepprenum = 0, steppretotal = 0, steppreav = 0;
+	private double speednum = 0, sizenum = 0, stepprenum = 0, steppretotal = 0;
+	private float steppreav = 0;
 	private long timedetect = 0, timeSecondsstart = 0, timestart = 0, timeSecondsstop = 0, timestop = 0;
 	private boolean startflag = false;
 	private BluetoothAdapter myBluetoothAdapter;
@@ -43,7 +43,7 @@ public class Pedometer extends Activity{
 	
 	private double peak = 0, fftpeak = 0, freq = 0;
 	private static int fs = 50;
-	private int N = 1024;
+	private int N = 256;
 	private int index = 0, freqindex = 0, j = 0;
 	private float[] arrayX = new float[N];
 	private float[] arrayY = new float[N];
@@ -310,8 +310,8 @@ public class Pedometer extends Activity{
 		        	float CurrentZ  = intent.getFloatExtra("CurrentZ", 0.0f);
 		        	
 		        	if (fftflag == true){
-			        	freq = (double)freqindex*(double)fs/(double)N;
-			        	steppreav = freq*sizenum*2.237;
+			        	freq = (float)freqindex*(float)fs/(float)N;
+			        	steppreav = (float) (freq*sizenum*2.237);
 			        	//stepprenum = freq*N/fs;
 			        	//steppretotal = steppretotal + stepprenum;
 			        	//steppreav = (steppretotal+stepdetect)/2;
