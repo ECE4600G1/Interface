@@ -2,26 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.Haiyue.profile_v1.Heartrate" >
 
-    <item
+    <item android:id="@+id/heartmenu_loca" android:title="Location" android:visible="true" android:orderInCategory="100">
+        
+    </item><item android:id="@+id/heartmenu_pedo" android:title="Pedometer" android:enabled="true" android:orderInCategory="100"></item><item android:id="@+id/heartmenu_post" android:title="Posture" android:visible="true" android:orderInCategory="100"></item><item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings" 
         android:visible="true"/>
-    <item android:id="@+id/heartmenu_loca" 
-        android:title="Location" 
-        android:visible="true" 
-        android:orderInCategory="100">
-        
-    </item>
-    <item android:id="@+id/heartmenu_post" 
-        android:title="Posture" 
-        android:visible="true" 
-        android:orderInCategory="100"></item>
-    <item android:id="@+id/heartmenu_pedo"
-         android:title="Pedometer" 
-         android:enabled="true" 
-         android:orderInCategory="100"></item>
+    
+    
+    
+    
     <item android:id="@+id/heartmenu_about" 
         android:title="About" 
         android:visible="true" 

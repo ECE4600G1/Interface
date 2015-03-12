@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.Time;
 import android.util.Log;
@@ -281,6 +282,15 @@ public class Posture extends Activity {
     		break;
     	case R.id.postmenu_heart:
     		startActivity(new Intent(this, Heartrate.class));
+    		finish();
+    		break;
+    	case R.id.postmenu_about:
+    		startActivity(new Intent(this, About.class));
+    		//finish();
+    		break;
+    	case R.id.action_settings:
+    		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, Bluetooth.class));
     		finish();
     		break;
     	}

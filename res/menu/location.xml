@@ -2,14 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.Haiyue.profile_v1.Location" >
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+    
     <item android:id="@+id/locamenu_heart" android:title="Heart rate"></item>
     <item android:id="@+id/locamenu_pedo" android:title="Pedometer"></item>
-    <item android:id="@+id/locamenu_post" android:title="Posture"></item>
+    <item android:id="@+id/locamenu_post" android:title="Posture"></item><item android:id="@+id/action_settings" android:orderInCategory="100" android:showAsAction="never" android:title="@string/action_settings" />
     <item android:id="@+id/locamenu_about" android:title="About"></item>
 
 </menu>

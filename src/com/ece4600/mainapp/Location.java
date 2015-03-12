@@ -34,6 +34,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
@@ -783,6 +784,16 @@ public class Location extends Activity implements OnClickListener,
 			startActivity(new Intent(this, Posture.class));
 			finish();
 			break;
+		case R.id.locamenu_about:
+			startActivity(new Intent(this, About.class));
+			//finish();
+			break;	
+		case R.id.action_settings:
+    		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, Bluetooth.class));
+    		finish();
+    		break;
+		
 		}
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {

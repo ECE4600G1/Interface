@@ -184,11 +184,21 @@ public class Heartrate extends Activity {
 		
 		switch(item.getItemId()){
 		
+		case R.id.heartmenu_pedo:
+			PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, Pedometer.class));
+    		finish();
+    		break;
+		
 		case R.id.heartmenu_loca:
-    		
+			PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, Location.class));
+    		finish();
     		break;
     	case R.id.heartmenu_post:
-    		
+    		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, Posture.class));
+    		finish();
     		break;
     	case R.id.heartmenu_about:
     		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
@@ -196,7 +206,9 @@ public class Heartrate extends Activity {
     		//finish();
     		break;
     	case R.id.action_settings:
-    		
+    		PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    		startActivity(new Intent(this, Bluetooth.class));
+    		finish();
     		break;
     		
     	}
