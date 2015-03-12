@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 	private static Context context;
 	
 	public SharedPreferences settings;
-	public SharedPreferences.Editor editor;
+	public SharedPreferences.Editor editor,postureEditor;
 	
 	public SharedPreferences postureSettings;
 	public OnSharedPreferenceChangeListener posturesListen;
@@ -210,6 +210,10 @@ public class MainActivity extends Activity {
     	editor = settings.edit();
     	
     	postureSettings = getSharedPreferences("posturePrefs", MODE_PRIVATE );
+    	postureEditor = postureSettings.edit();
+    	//postureEditor.putString("fileName", "");
+    	//postureEditor.commit();
+    	//Log.e("Main","main set up preferences");
     }
 	
 	public void restorePreferences(){

@@ -205,6 +205,8 @@ public class bleService extends Service{
 		mBluetoothAdapter.stopLeScan(mLeScanCallback);
 	
 	 unregisterReceiver(mBLEReceiver);
+	 postureEditor.putString("fileName", "");
+	 postureEditor.commit();
 
 	}
 	 
